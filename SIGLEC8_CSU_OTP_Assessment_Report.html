@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGLEC8 × CSU — Open Targets Platform 靶标评估报告</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2430; --ink2:#5b6472; --ink3:#8a93a2;
+    --line:#e6e9ef; --accent:#2f6fed; --accent-soft:#eef4ff;
+    --green:#16a34a; --green-soft:#eafaf0; --red:#dc2626; --red-soft:#fdeeee;
+    --amber:#d97706; --amber-soft:#fef6e7; --gray-soft:#f3f4f6;
+    --shadow:0 1px 3px rgba(16,24,40,.06),0 1px 2px rgba(16,24,40,.04);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;line-height:1.65;font-size:15px}
+  .wrap{max-width:980px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#173a7a 0%,#2f6fed 60%,#4a8df8 100%);border-radius:16px;padding:34px 38px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:3px 12px;border-radius:20px;font-size:12.5px;margin-bottom:14px}
+  .hero h1{font-size:27px;font-weight:700;line-height:1.35;margin-bottom:10px}
+  .hero .sub{font-size:14.5px;opacity:.92;max-width:720px}
+  .hero .meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:20px;font-size:13px;opacity:.92}
+  .hero .meta b{font-weight:600}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-top:22px;box-shadow:var(--shadow)}
+  .sec-title{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;margin-bottom:6px}
+  .sec-title .no{background:var(--accent);color:#fff;width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;flex:none}
+  .sec-desc{color:var(--ink2);font-size:13.5px;margin-bottom:18px}
+  h4{font-size:15.5px;margin:22px 0 10px}
+  h4 .dot{color:var(--accent);margin-right:6px}
+  .verdict{display:flex;gap:18px;align-items:flex-start;background:var(--red-soft);border:1px solid #f3c6c6;border-radius:12px;padding:18px 22px;margin-top:18px}
+  .verdict .big{flex:none;width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid var(--red);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:var(--red);text-align:center;line-height:1.25}
+  .score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:16px}
+  .sc{background:var(--gray-soft);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+  .sc .k{font-size:12px;color:var(--ink2);margin-bottom:7px}
+  .sc .v{font-size:20px;font-weight:700}
+  .sc .t{font-size:11.5px;margin-top:5px;color:var(--ink3)}
+  .light{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+  .g{background:var(--green)} .r{background:var(--red)} .y{background:var(--amber)} .gr{background:#9aa3b2}
+  table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13.5px}
+  th{background:var(--gray-soft);color:var(--ink2);font-weight:600;text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  .num{font-variant-numeric:tabular-nums;text-align:right}
+  .pill{display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}
+  .pill-g{background:var(--green-soft);color:var(--green)} .pill-r{background:var(--red-soft);color:var(--red)} .pill-y{background:var(--amber-soft);color:var(--amber)} .pill-n{background:var(--gray-soft);color:var(--ink2)}
+  .note{border-radius:10px;padding:14px 18px;margin-top:14px;font-size:13.5px;border:1px solid var(--line)}
+  .note.warn{background:var(--red-soft);border-color:#f3c6c6} .note.warn b{color:var(--red)}
+  .note.info{background:#f2f6ff;border-color:#cdd9f5} .note.info b{color:var(--accent)}
+  .note.tip{background:var(--green-soft);border-color:#bfe6cd} .note.tip b{color:var(--green)}
+  ul,ol{margin:8px 0 8px 22px} li{margin:5px 0}
+  .small{font-size:12.5px;color:var(--ink3)}
+  .bar-row{display:flex;align-items:center;gap:10px;margin:7px 0}
+  .bar-lbl{width:150px;font-size:12.5px;color:var(--ink2);text-align:right;flex:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bar-track{flex:1;background:var(--gray-soft);border-radius:6px;height:16px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:6px}
+  .bar-val{width:58px;font-size:12px;color:var(--ink2);flex:none;font-variant-numeric:tabular-nums}
+  .tl{position:relative;margin:16px 0 4px;padding-left:26px}
+  .tl::before{content:"";position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:var(--line)}
+  .tl-item{position:relative;padding:0 0 20px 10px}
+  .tl-item::before{content:"";position:absolute;left:-24px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid #fff;box-shadow:0 0 0 2px var(--accent)}
+  .tl-item.danger::before{background:var(--red);box-shadow:0 0 0 2px var(--red)}
+  .tl-item.warn::before{background:var(--amber);box-shadow:0 0 0 2px var(--amber)}
+  .tl-item.ok::before{background:var(--green);box-shadow:0 0 0 2px var(--green)}
+  .tl-date{font-size:12px;color:var(--accent);font-weight:600}
+  .tl-item.danger .tl-date{color:var(--red)} .tl-item.warn .tl-date{color:var(--amber)} .tl-item.ok .tl-date{color:var(--green)}
+  .tl-txt{font-size:13.5px;margin-top:2px}
+  .ref{font-size:12.5px;color:var(--ink2);border-top:1px dashed var(--line);padding-top:12px;margin-top:12px}
+  .ref b{color:var(--ink)}
+  .footer{margin-top:30px;text-align:center;color:var(--ink3);font-size:12px}
+  @media(max-width:720px){.hero{padding:26px 22px}.hero h1{font-size:22px}}
+  @media print{body{background:#fff}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ===== 头部 ===== -->
+<div class="hero">
+  <span class="tag">Open Targets Platform · 靶标优先级评估（Target Prioritisation）</span>
+  <h1>SIGLEC8 × 慢性自发性荨麻疹（CSU）<br>成药可行性完整评估</h1>
+  <div class="sub">按「证据维度 → 组合解读 → 实际操作」三层框架执行：关联分数、可成药性（Tractability）、效应方向、安全性与临床先例、五步合成法、概率粗估。本报告同时交叉核验了现实世界临床管线（lirentelimab / AK006 已公开数据）。</div>
+  <div class="meta">
+    <div>靶标：<b>SIGLEC8</b>（ENSG00000105366，唾液酸结合 Ig 样凝集素 8）</div>
+    <div>疾病：<b>慢性自发性荨麻疹</b>（MONDO_0044212）</div>
+    <div>OTP 数据版本：<b>platform2606</b>（2026-06）</div>
+    <div>查询时间：<b>2026-08-14</b>（GraphQL API v4）</div>
+  </div>
+</div>
+
+<!-- ===== 0 执行摘要 ===== -->
+<div class="card">
+  <div class="sec-title"><span class="no">0</span>执行摘要（一页结论）</div>
+  <div class="verdict">
+    <div class="big">偏负面<br>（机制 POC 已失败）</div>
+    <div>
+      <h3>结论：机制生物学合理，但人群层面概念验证已两次失败</h3>
+      <p>Siglec-8 是肥大细胞 / 嗜酸性粒细胞表面的抑制性受体，激动后抑制肥大细胞脱颗粒、诱导嗜酸性粒细胞凋亡——靶标生物学对 CSU 高度自洽，抗体模态也已验证可执行（lirentelimab 曾推进至 Phase 2b/3）。<b>然而现实世界管线给出了决定性负信号</b>：lirentelimab 在 CSU 的 Phase 2b（MAVERICK）未达主要终点（2024-01 终止全部开发），同机制、肥大细胞选择性更强的 Siglec-6 激动剂 AK006 在 Phase 1 POC 也无活性（2025-01 终止）。Siglec 受体激动策略在 CSU 的人群概念验证未通过。除非有明确的差异化设计（双靶向、生物标志物分层），重新立项风险高。</p>
+    </div>
+  </div>
+  <div class="score-grid">
+    <div class="sc"><div class="k">① 关联分数</div><div class="v">0.075</div><div class="t">低；100% 来自 clinical_precedence（唯一证据即失败先例）</div></div>
+    <div class="sc"><div class="k">② 小分子 Tractability</div><div class="v">不可行</div><div class="t">无口袋/无配体；抗体模态 Advanced Clinical 可行</div></div>
+    <div class="sc"><div class="k">③ 效应方向</div><div class="v">激动剂</div><div class="t">GoF（激动抑制性受体）= protect；OTP 原生标注 LoF 与实际机制不符</div></div>
+    <div class="sc"><div class="k">④ 遗传证据</div><div class="v">无</div><div class="t">无 GWAS 信号；LOF 无约束（oe≈0.72），拿不到 ×2 加成</div></div>
+    <div class="sc"><div class="k">⑤ 临床先例（OTP）</div><div class="v">有·已失败</div><div class="t">lirentelimab 最高 Phase 3（他适应症）；CSU Ⅱb 终止</div></div>
+    <div class="sc"><div class="k">⑥ 安全信号</div><div class="v">良好</div><div class="t">非必需基因、KO 非致命、无 FAERS；安全不构成否决项</div></div>
+  </div>
+  <div class="note info"><b>一句话判断：</b>Siglec-8 是机制合理、模态可行、安全可控的肥大细胞抑制靶点，但最关键的「人体概念验证」已两次失败（Siglec-8 Ⅱb + Siglec-6 Ⅰ期均无临床获益），当前证据不支持按既有范式重启 CSU 开发；仅在有明确差异化策略（双靶向 / 分层人群 / 新给药方案）时才值得考虑。</div>
+</div>
+
+<!-- ===== 1 关联分数 ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">1</no>支柱一：靶标—疾病关联分数（Association Score）实测</div>
+  <div class="sec-desc">OTP 将 SIGLEC8 × CSU 关联分数评为 0.0748（满分 1.0），属于低分区。更关键的是：分数构成单一，全部来自 clinical_precedence（临床先例）——即「lirentelimab 在 CSU 做过临床试验」这一事实，没有任何遗传学、文本挖掘或表达证据贡献。</div>
+  <h4><span class="dot">◆</span>核心结果</h4>
+  <table>
+    <tr><th style="width:34%">指标</th><th>数值</th><th style="width:34%">解读</th></tr>
+    <tr><td>关联分数（association score）</td><td class="num"><b>0.0748</b></td><td>低分区（&lt;0.4），不构成支持信号</td></tr>
+    <tr><td>新颖度（novelty）</td><td class="num">0.0088</td><td>低新颖度：临床先例使该配对不「新」</td></tr>
+    <tr><td>证据数据源构成</td><td class="num">clinical_precedence 100%</td><td>唯一数据源，无 europepmc / gwas / impc 贡献</td></tr>
+    <tr><td>证据条数</td><td class="num">2 条（datatype: clinical）</td><td>均来自同一药物 lirentelimab 的临床记录</td></tr>
+    <tr><td>疾病侧靶标总数</td><td class="num">220</td><td>SIGLEC8 排第 19 位（并列区 0.075）</td></tr>
+    <tr><td>靶标全部疾病关联数</td><td class="num">75</td><td>多为临床先例/文献弱关联，无强遗传关联</td></tr>
+  </table>
+  <h4><span class="dot">◆</span>疾病视角排名（节选 top 与定位）</h4>
+  <div class="bar-row"><div class="bar-lbl">IGHE（抗IgE 靶点）</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><div class="bar-val">0.422</div></div>
+  <div class="bar-row"><div class="bar-lbl">HRH1（H1 受体）</div><div class="bar-track"><div class="bar-fill" style="width:96%;background:var(--accent)"></div></div><div class="bar-val">0.403</div></div>
+  <div class="bar-row"><div class="bar-lbl">IL4R（度普利尤单抗）</div><div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--accent)"></div></div><div class="bar-val">0.358</div></div>
+  <div class="bar-row"><div class="bar-lbl">PTAFR / VDR / DHFR</div><div class="bar-track"><div class="bar-fill" style="width:79%;background:var(--accent)"></div></div><div class="bar-val">0.26–0.33</div></div>
+  <div class="bar-row"><div class="bar-lbl">BTK（伊布替尼类）</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--accent)"></div></div><div class="bar-val">0.118</div></div>
+  <div class="bar-row"><div class="bar-lbl" style="font-weight:700;color:var(--red)">SIGLEC8 ⬅</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--red)"></div></div><div class="bar-val"><b style="color:var(--red)">0.075</b></div></div>
+  <div class="note warn"><b>⚠️ 关键认知（分数≠质量）：</b>SIGLEC8 的低分不是「无证据」，而是证据结构单一——它唯一的 OTP 证据就是 lirentelimab 的临床先例，而这个先例本身已在 CSU Ⅱb 期失败（见支柱四）。换言之：低分 + 唯一证据失败 = 双重负信号。不能把这里的低分解读为「未知的潜力靶点」，而应解读为「有先例但先例已证伪」。</div>
+</div>
+
+<!-- ===== 2 Tractability ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">2</no>支柱二：可成药性评估（Tractability）四模态实测</div>
+  <div class="sec-desc">SIGLEC8 是单次跨膜 I 型膜蛋白（UniProt 定位），凝集素结构域面向胞外。四模态中抗体（AB）模态已到 Advanced Clinical——这是 OTP 能给出的最高 Tractability 分档之一。</div>
+  <h4><span class="dot">◆</span>四模态逐项结果</h4>
+  <table>
+    <tr><th style="width:16%">模态</th><th>关键评估项</th><th style="width:14%">判定</th><th style="width:36%">解读</th></tr>
+    <tr><td><b>小分子 SM</b></td><td>Approved / Advanced / Phase1 / 高质口袋 / 高质配体 / Druggable Family</td><td><span class="pill pill-r">全否</span></td><td>凝集素结构域结合位点浅且亲水，无高质量口袋；无已知小分子结合剂 → 小分子路线基本不可行</td></tr>
+    <tr><td><b>抗体 AB</b></td><td>Advanced Clinical、UniProt SigP/TMHMM、GO CC med conf</td><td><span class="pill pill-g">可行</span></td><td><b>Advanced Clinical = true</b>（lirentelimab 在嗜酸性胃肠病推进至 Phase 3）；I 型跨膜 + 胞外表位 → 抗体天然可行</td></tr>
+    <tr><td><b>PROTAC PR</b></td><td>无小分子结合剂、无泛素化位点记录、无半衰期数据</td><td><span class="pill pill-r">不可行</span></td><td>前置条件（小分子 binder）缺失</td></tr>
+    <tr><td><b>其他 OC</b></td><td>无获批/临床/Phase1 记录</td><td><span class="pill pill-n">N/A</span></td><td>基因治疗/寡核苷酸对慢性炎症疾病不适用</td></tr>
+  </table>
+  <h4><span class="dot">◆</span>结构生物学核实（PDB，2026-08-14 复核）</h4>
+  <p style="font-size:13.8px">SIGLEC8（UniProt Q9NYZ4）共有 5 个 PDB 条目。其中 7QUH（2023-05，X-RAY）是 <b>Siglec-8 与治疗性 Fab AK002（lirentelimab）的复合物结构</b>——抗体表位已被高分辨结构确认，抗体开发的成药性设计基础充分。2N7A/2N7B 为 NMR 溶液结构（凝集素结构域），2N7B 含唾液酸配体。</p>
+  <table>
+    <tr><th style="width:14%">PDB ID</th><th style="width:18%">释放日期</th><th style="width:22%">配体（复合物）</th><th>说明</th></tr>
+    <tr><td>2N7A</td><td>2016-07-06</td><td>—</td><td>Solution NMR：人 Siglec-8 凝集素结构域溶液结构</td></tr>
+    <tr><td>2N7B</td><td>2016-07-06</td><td>0D8（唾液酸配体）</td><td>Solution NMR：凝集素结构域与唾液酸配体复合物（配体结合态）</td></tr>
+    <tr><td>7QU6</td><td>2023-01-18</td><td>—</td><td>X-RAY：Siglec-8 N 端结构域晶体结构</td></tr>
+    <tr><td>7QUI</td><td>2023-01-18</td><td>—</td><td>X-RAY：Siglec-8 N 端结构域（配体结合构象）</td></tr>
+    <tr><td><b>7QUH</b></td><td>2023-05-31</td><td><b>治疗性 Fab AK002</b></td><td><b>X-RAY：Siglec-8 与 lirentelimab Fab 复合物结构</b>——抗体表位已解析</td></tr>
+  </table>
+  <div class="note info"><b>对评估的影响：</b>7QUH 证明抗体表位可结晶、可高分辨解析，抗体开发路线在结构层面完全无障碍；凝集素结构域的浅口袋（NMR/X-ray 均可见）则解释了为何小分子模态红灯——这不是疏漏，是结构本质。</div>
+  <div class="note tip"><b>模态结论：</b>唯一可行模态为<b>抗体（激动性单抗）</b>，且已有 Advanced Clinical 先例与高分辨复合物结构支撑。模态不是本靶点的瓶颈——临床失败发生在模态验证之后，指向机制/人群问题而非成药性问题。</div>
+</div>
+
+<!-- ===== 3 效应方向 ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">3</no>支柱三：效应方向（Direction of Effect）核对</div>
+  <div class="sec-desc">Siglec-8 是含 ITIM 基序的抑制性受体：被激动（配体/抗体交联）后向肥大细胞/嗜酸性粒细胞传递抑制信号 → 抑制脱颗粒、诱导凋亡。因此对 CSU（肥大细胞驱动）而言，治疗方向是<b>激动（gain-of-function）而非抑制</b>。注意：OTP 的 clinical_precedence 证据把方向原生标注为「LoF / protect」，这与 lirentelimab 的实际机制（激动性抗体）不符，属于数据源默认标注，须人工修正。</div>
+  <table>
+    <tr><th style="width:22%">证据来源</th><th style="width:38%">内容</th><th>方向推断</th></tr>
+    <tr><td>OTP evidence（clinical_precedence）</td><td>2 条，directionOnTarget=LoF、directionOnTrait=protect</td><td><span class="pill pill-y">标注存疑</span> 与激动剂机制不符，按默认值处理不可靠</td></tr>
+    <tr><td>UniProt / GO 功能描述（OTP）</td><td>介导唾液酸依赖的细胞黏附；含 ITIM 抑制基序（文献 PMID 10625619 等）</td><td>抑制性受体：激活 = 抑制效应细胞</td></tr>
+    <tr><td>机制文献</td><td>Siglec-8 激动诱导嗜酸性粒细胞凋亡、抑制肥大细胞 FcεRI/MRGPRX2 等多种激活路径（PMID 34954198、37605867、37413923）</td><td>激动 = protect（CSU 中肥大细胞是核心效应细胞）</td></tr>
+    <tr><td>lirentelimab 临床前/临床</td><td>激动性人源化 IgG1：体外抑制 IgE 依赖/非依赖肥大细胞活化；临床中嗜酸性粒细胞耗竭 95%</td><td>方向执行已验证（机制 PD 阳性），但未转化为症状获益</td></tr>
+    <tr><td>ADCC 药理</td><td>IgG1 骨架经 ADCC 耗竭嗜酸性粒细胞（ATLAS/MAVERICK 中 -95~-96%）</td><td>效应功能同时依赖直接抑制 + 耗竭，方向一致</td></tr>
+  </table>
+  <div class="note tip"><b>方向结论：</b>「激动 Siglec-8 = 抑制肥大细胞 = protect」→ 开发<b>激动性抗体（agonistic antibody）</b>。方向清晰、无争议，且 lirentelimab 已验证该方向可在人体内起效（机制 PD 阳性）。但注意：<b>方向正确不等于临床成功</b>——本案例的教训正是「机制起效（耗竭 95%）与临床获益（UAS7 无差异）分离」。</div>
+</div>
+
+<!-- ===== 4 安全与临床 ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">4</no>支柱四：安全性与临床先例</div>
+  <div class="sec-desc">安全信号整体良好，不构成否决项；真正的决定性因素在临床管线——Siglec 家族在 CSU 已出现两次失败（lirentelimab Ⅱb、AK006 Ⅰ期 POC）。</div>
+  <h4><span class="dot">◆</span>靶标优先化「交通灯」系统</h4>
+  <table>
+    <tr><th>绿灯（有利）</th><th>数值</th><th>红灯 / 黄灯（不利）</th><th>数值</th></tr>
+    <tr><td><span class="light g"></span>细胞型特异性（celltypeSpecificity）</td><td class="num">0.949</td><td><span class="light r"></span>hasPocket（小分子口袋）</td><td class="num">0</td></tr>
+    <tr><td><span class="light g"></span>细胞型分布集中度</td><td class="num">0.941</td><td><span class="light r"></span>hasLigand / 小分子结合剂</td><td class="num">0</td></tr>
+    <tr><td><span class="light g"></span>maxClinicalStage（有临床项目）</td><td class="num">0.7</td><td><span class="light y"></span>遗传约束（geneticConstraint）</td><td class="num">0.016</td></tr>
+    <tr><td><span class="light g"></span>非必需基因（geneEssentiality）</td><td class="num">0</td><td><span class="light y"></span>小鼠 KO 表型（温和）</td><td class="num">0</td></tr>
+  </table>
+  <h4><span class="dot">◆</span>FAERS 与靶标安全信号</h4>
+  <ul>
+    <li><b>FAERS：N/A</b>——Siglec-8 无获批药物，无上市后不良反应信号可查。</li>
+    <li><b>OTP safetyLiabilities：空</b>——无已知安全责任记录。</li>
+    <li><b>遗传约束：LOF 未受约束</b>（LOEUF oe=0.72，oe 区间 0.54–0.98，p≈2.7e-8 未达显著缺失约束）→ 人类人群对功能缺失耐受，提示「降低 Siglec-8 功能」本身无大风险；而激动剂方向需关注的是过度抑制肥大细胞/嗜酸性粒细胞带来的免疫抑制风险，但 lirentelimab 长期数据未显示严重免疫毒性（主要不良事件为输注相关反应，~18%，无 SAE 信号）。</li>
+    <li><b>小鼠 KO（Siglece）：非致命</b>——仅见中性粒细胞/巨噬细胞生理异常（MP:0002463、MP:0002451，造血/免疫表型），不涉及致死或器官毒性 → 靶标可耐受缺失。</li>
+  </ul>
+  <h4><span class="dot">◆</span>OTP 临床先例（1 项） vs 现实世界管线（关键反转）</h4>
+  <div class="note warn"><b>⚠️ 口径差异：</b>OTP 记录 lirentelimab（AK002，CHEMBL4297878）maxClinicalStage=PHASE_3（嗜酸性胃肠病/食管炎等），并把 CSU 的 Phase 2（NCT05528861）记为 TERMINATED——这与现实一致；但 OTP 字段不会告诉你「2024-01 公司已宣布终止 lirentelimab 全部适应症开发」，后者只有从公司 PR / SEC 文件中才能获得。<b>OTP 的临床字段存在明显滞后与上下文缺失，必须以现实管线为准绳。</b></div>
+  <div class="tl">
+    <div class="tl-item ok"><div class="tl-date">2022-04</div><div class="tl-txt"><b>Phase 2a 开放标签 POC 阳性（NCT03436797，Altrichter 等，PMID 34954198）</b>：抗组胺难治慢性/诱导性荨麻疹，奥马珠单抗初治队列 UAS7 改善 75%、92% 达 UCT≥12；奥马珠单抗耐药队列完全缓解 36%。——这是「机制 POC 阳性」的起点。</div></div>
+    <div class="tl-item warn"><div class="tl-date">2023-11</div><div class="tl-txt">MAVERICK（NCT05528861）Phase 2b 启动完成入组：123 例抗组胺难治 CSU，lirentelimab 300mg SC Q2W vs 安慰剂，主要终点 UAS7 绝对变化（12 周）。</div></div>
+    <div class="tl-item danger"><div class="tl-date">2024-01-16</div><div class="tl-txt"><b>MAVERICK 未达主要终点</b>：lirentelimab UAS7 变化 −7.9（−27%）vs 安慰剂 −8.4（−26%），NS；UAS7=0 完全缓解 6% vs 0%（NS）。同期 ATLAS（特应性皮炎 Ⅱb）同样失败。Allakos 宣布<b>终止 lirentelimab 全部适应症开发</b>，裁员约 50%，转向 AK006。</div></div>
+    <div class="tl-item"><div class="tl-date">2024-06</div><div class="tl-txt">AK006（Siglec-6 激动剂，肥大细胞选择性更强）进入 CSU Phase 1（NCT06072157），健康受试者皮下 720mg 受体占有率 98%、安全性良好。</div></div>
+    <div class="tl-item danger"><div class="tl-date">2025-01-27</div><div class="tl-txt"><b>AK006 Phase 1 CSU 队列也无活性</b>：UAS7 变化 −8.2 vs 安慰剂 −12.4（数值上安慰剂更好），完全缓解 9% vs 9%。Allakos 终止 AK006，裁员 75%，仅保留约 15 人探索战略替代方案。</div></div>
+    <div class="tl-item warn"><div class="tl-date">2026-08（当前）</div><div class="tl-txt">Siglec 受体激动策略在 CSU 无活跃临床项目；Allakos 已实质退出该赛道。Siglec-8 在嗜酸性胃肠病方向的 Phase 3 数据虽曾积极（组织学终点），但未转化为获批，公司同样放弃。</div></div>
+  </div>
+  <h4><span class="dot">◆</span>竞争格局一览</h4>
+  <table>
+    <tr><th style="width:16%">项目 / 公司</th><th style="width:20%">机制</th><th style="width:22%">临床阶段</th><th style="width:30%">已披露关键数据</th><th>状态信号</th></tr>
+    <tr><td>Lirentelimab（AK002）/ Allakos</td><td>Siglec-8 激动性抗体</td><td>CSU Ⅱb 终止；他适应症最高 Phase 3</td><td>Ⅱa POC 阳性（UAS7 −75%）；<b>Ⅱb MAVERICK 未达终点</b>（−7.9 vs −8.4，NS）；嗜酸粒耗竭 95%</td><td><span class="pill pill-r">终止</span> 2024-01</td></tr>
+    <tr><td>AK006 / Allakos</td><td>Siglec-6 激动性抗体（肥大细胞选择性）</td><td>Phase 1 POC</td><td>健康受试者 98% 受体占有；<b>CSU 队列无活性</b>（−8.2 vs −12.4）</td><td><span class="pill pill-r">终止</span> 2025-01</td></tr>
+    <tr><td>Omalizumab / 罗氏</td><td>抗 IgE</td><td>已获批（CSU 一线生物制剂）</td><td>UAS7 显著改善，真实世界证据充分</td><td><span class="pill pill-g">获批</span></td></tr>
+    <tr><td>Remibrutinib / 诺华</td><td>BTK 抑制剂（口服小分子）</td><td>CSU Phase 3 完成</td><td>REMIX-1/2 达到主要终点；已递交上市申请（2025）</td><td><span class="pill pill-g">注册中</span></td></tr>
+    <tr><td>Ligelizumab / 诺华</td><td>高亲和抗 IgE</td><td>CSU Phase 3</td><td>Ⅱb 强阳性但 Ⅲ 期折戟（2023 宣布放弃）</td><td><span class="pill pill-r">终止</span></td></tr>
+  </table>
+  <div class="note info"><b>安全综合结论：</b>本靶点安全画像良好（非必需基因、KO 非致命、lirentelimab 长期给药无严重免疫毒性、无 FAERS 信号），安全不构成否决项。<b>否决风险全部集中在「临床概念验证失败」</b>：Siglec-8（Ⅱb）与 Siglec-6（Ⅰ期）两个独立分子在同一适应症的连续失败，强烈提示「激活抑制性 Siglec 受体抑制肥大细胞」这一策略在 CSU 目标人群（抗组胺难治）中的转化障碍是系统性的，而非单一分子问题。</div>
+</div>
+
+<!-- ===== 5 五步合成 ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">5</no>五步合成法：把 OTP 数据变成判断</div>
+  <h4><span class="dot">◆</span>Step 1｜锁定靶标—疾病对，看关联分数</h4>
+  <p style="font-size:13.8px">分数 0.0748（低分区），但构成单一——100% 来自 clinical_precedence。不是「没有证据」，而是「唯一证据 = 已失败的临床先例」。按分数阈值法本应判「证据薄弱」，结合证据来源解析后实为「负面先例」。<span class="pill pill-r">红灯</span></p>
+  <h4><span class="dot">◆</span>Step 2｜拆解证据类型权重</h4>
+  <ul>
+    <li><b>遗传学：无</b>——无 CSU GWAS 信号，无 Mendelian 支持，LOF 人群耐受（oe=0.72）→ <b>拿不到 ×2 加成</b>，且无遗传学「保护方向」背书。</li>
+    <li><b>已知药物/临床在研：有但已失败</b>——lirentelimab 是最高等级先验（Advanced Clinical），但 Ⅱb 失败把「最高先验」变成了「最重负累」。</li>
+    <li><b>表达：中</b>——细胞型特异性 0.949 极强（肥大细胞/嗜酸性粒细胞），但注意 GTEx/Tabula 等 bulk 图谱对肥大细胞覆盖差（表达盲区），需以流式/IHC 文献补位（SIGLEC8 在组织肥大细胞高表达有明确文献）。</li>
+    <li><b>动物模型：弱</b>——Siglece KO 仅见温和免疫细胞表型，无疾病模型支持。</li>
+    <li><b>文献：中</b>——机制文献充分（抑制性受体），但无临床获益文献。</li>
+  </ul>
+  <h4><span class="dot">◆</span>Step 3｜Tractability 模态匹配</h4>
+  <ul>
+    <li>小分子：<span class="pill pill-r">不可行</span>（无口袋、无配体、无 Druggable Family，结构本质限制）。</li>
+    <li>抗体：<span class="pill pill-g">首选且已验证</span>——Advanced Clinical 先例 + 7QUH 复合物结构 + I 型跨膜胞外表位。</li>
+    <li>PROTAC/基因治疗：<span class="pill pill-r">不适用</span>。</li>
+  </ul>
+  <h4><span class="dot">◆</span>Step 4｜核对效应方向</h4>
+  <p style="font-size:13.8px">激动（GoF）= protect → 开发激动性抗体。方向无争议，且在人体内已验证机制可执行（嗜酸性粒细胞耗竭 95%、抑制肥大细胞多通路）。<b>方向正确 + 机制起效，但症状终点失败</b>——这是本案例最值得深挖的转化断层。</p>
+  <h4><span class="dot">◆</span>Step 5｜叠加安全性与交通灯</h4>
+  <ul>
+    <li>安全：<span class="pill pill-g">绿灯</span>——非必需基因、KO 非致命、无 FAERS、临床耐受良好。</li>
+    <li>交通灯：<span class="pill pill-g">绿灯</span> 细胞型特异性 0.949、临床阶段 0.7；<span class="pill pill-r">红灯</span> 小分子不可成药（不影响抗体路线）。</li>
+    <li><b>毒理风险敞口：低</b>——无终止性毒理信号（区别于 EP262 类案例），失败原因不在安全。</li>
+    <li>临床概念验证：<span class="pill pill-r">红灯</span>——两次独立失败（Siglec-8 Ⅱb、Siglec-6 Ⅰ期），系统性转化障碍。</li>
+  </ul>
+</div>
+
+<!-- ===== 6 概率 ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">6</no>把证据转化为「概率」：做法 A 粗估</div>
+  <table>
+    <tr><th style="width:34%">判断要素</th><th style="width:16%">证据状态</th><th>对成功概率的影响</th></tr>
+    <tr><td>行业基线（Phase 1 → 获批）</td><td>≈10%</td><td>起点</td></tr>
+    <tr><td>获批先例（Siglec-8 任意适应症）</td><td>无</td><td>×1（无加成）</td></tr>
+    <tr><td>遗传证据</td><td>无（LOF 耐受）</td><td>×1（拿不到 ×2）；且无「人类基因保护」背书</td></tr>
+    <tr><td><b>临床概念验证（人体 POC）</b></td><td><b>已做但失败（Ⅱb 未达终点 + Ⅰ期无活性）</b></td><td><b>最大负向修正</b>：非「未验证」，而是「验证失败」——按医学统计，同机制二次独立失败后重复该机制的成功率显著低于新机制基线</td></tr>
+    <tr><td>模态可行性</td><td>抗体已验证（Advanced Clinical）</td><td>中性偏正（执行层面无障碍）</td></tr>
+    <tr><td>毒理不确定性</td><td>无危险信号</td><td>中性（不构成负向）</td></tr>
+    <tr><td>竞争与未满足需求</td><td>CSU 竞争饱和（抗 IgE、BTK 抑制剂已/将获批）</td><td>轻微负向：差异化空间收窄</td></tr>
+  </table>
+  <div class="note info"><b>粗估结论（示意性，非定量预测）：</b>按「10% 基线 × 无遗传加成 × 概念验证失败大幅下修 × 竞争饱和」估算，按既有范式重启 Siglec-8 × CSU 的获批概率<b>显著低于基线（示意 &lt;5%）</b>。若采用差异化设计（见第 8 节），概率可部分回升，但需先回答「为何前两次失败」这一科学问题。<b>信息增量最强的观测节点：无活跃项目可观测</b>——建议以「机制复盘文献 + Allakos 战略重组后续（资产/数据是否易手）」作为情报跟踪点。</div>
+  <div class="note tip"><b>做法 B（机器学习，简评）：</b>OTP 2017 年模型（AUC 0.76）默认特征会系统性高估此类靶标——它有「细胞型特异性高、有临床候选」等正特征，但模型无法捕捉「临床候选已失败」这一最高权重信息。任何模型评分在本案例中都必须叠加「人体 POC 失败」修正项。</div>
+</div>
+
+<!-- ===== 7 局限 ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">7</no>本次评估的局限（必读）</div>
+  <ul>
+    <li><b>分数≠质量</b>：0.075 的低分是「证据丰度」指标；本案例特殊性在于其唯一证据（临床先例）本身已失败，解读为「负面先例」而非「未知潜力」。</li>
+    <li><b>OTP 数据滞后与上下文缺失</b>：OTP 把 lirentelimab 记为 PHASE_3 / TERMINATED 混杂状态，未反映 2024-01 公司终止全部开发的决策；临床管线信息必须以公司 PR、SEC 8-K、ClinicalTrials.gov 为准。</li>
+    <li><b>表达盲区</b>：GTEx/Tabula 等 bulk 图谱对肥大细胞等稀有细胞型覆盖差（median 常为 0），本报告未将「图谱低表达」当作负证据，而是以文献补位（组织肥大细胞高表达明确）。</li>
+    <li><b>方向标注存疑</b>：OTP 将 clinical_precedence 方向原生标注为 LoF/protect，与 lirentelimab 激动剂机制不符，已人工修正为「激动 = protect」；依赖原生字段会得到错误结论。</li>
+    <li><b>信息时效</b>：管线检索截至 2026-08-14；Allakos 战略重组（2025-01 后）后的资产动向可能影响判断，需持续跟踪。</li>
+    <li><b>概率为示意性粗估</b>：非定量预测，仅供决策排序。</li>
+  </ul>
+</div>
+
+<!-- ===== 8 下一步 ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">8</no>推荐的实际操作路径（下一步）</div>
+  <ol>
+    <li><b>先做机制复盘（成本最低、信息量最大）</b>：系统性复盘 MAVERICK 与 AK006 Ⅰ期失败原因——是靶点覆盖不足（Siglec-8 仅部分抑制肥大细胞表型？）、给药方案（每月 IV 频率不够 vs Ⅱa 每月 6 剂）、患者分层（抗组胺难治人群 vs Ⅱa 的奥马珠单抗初治人群）、还是终点选择（UAS7 对肥大细胞抑制类药物的敏感性）？对比 Ⅱa 阳性人群（奥马珠单抗初治、高应答）与 Ⅱb 阴性人群的差异。</li>
+    <li><b>只有出现明确差异化假设才重启</b>：(a) 双靶向 Siglec-8 × Siglec-6 双抗（同时覆盖肥大细胞双抑制受体）；(b) 生物标志物分层（皮肤肥大细胞密度/活化标志物、嗜酸性粒细胞基线分层）复现 Ⅱa 的应答人群；(c) 更高频/更高剂量方案。三者任一成立才能对抗「两次失败」先验。</li>
+    <li><b>遗传补位</b>：若立项，优先获取 CSU 大规模 GWAS 与单细胞（皮肤/血）表达数据，确认肥大细胞亚群与 Siglec-8 表达在患者 vs 健康人中的差异，为分层提供依据。</li>
+    <li><b>毒理尽调（低优先级但必做）</b>：确认长期激动 Siglec-8 对肥大细胞库/嗜酸性粒细胞耗竭的恢复动力学与感染风险（现有 lirentelimab 长期数据未见，但需正式审阅）。</li>
+    <li><b>竞争定位</b>：CSU 已进入「抗 IgE + BTK 抑制剂」双轨时代，新机制需证明在抗组胺难治/抗 IgE 耐药亚群中的增量价值。</li>
+    <li><b>情报跟踪</b>：监控 Allakos 战略替代方案结果、lirentelimab/AK006 临床数据是否被第三方授权复用、以及 Siglec 家族在嗜酸性胃肠病方向的剩余价值。</li>
+  </ol>
+</div>
+
+<!-- ===== 9 附录 ===== -->
+<div class="card">
+  <div class="sec-title"><no class="no">9</no>附录：数据来源与关键证据</div>
+  <h4><span class="dot">◆</span>关键实体</h4>
+  <ul>
+    <li>靶标：SIGLEC8 = ENSG00000105366（sialic acid binding Ig like lectin 8，UniProt Q9NYZ4）</li>
+    <li>疾病：慢性自发性荨麻疹（CSU）= MONDO_0044212（OTP 同义节点 chronic idiopathic urticaria）</li>
+    <li>主要药物：Lirentelimab / AK002 / Antolimab（CHEMBL4297878，人源化抗 Siglec-8 激动性 IgG1）</li>
+  </ul>
+  <h4><span class="dot">◆</span>OTP 证据明细（platform2606，2026-06 版）</h4>
+  <div class="ref"><b>证据（2 条）：</b>clinical_precedence × 2（datatype: clinical），方向标注 LoF/protect（与实际机制不符，已修正）。<br>
+  <b>credible sets（28 个）：</b>均为 cis-eQTL / pQTL（UKB_PPP、GTEx），非疾病 GWAS，L2G 预测为空 → 无基因因果分配。<br>
+  <b>表达：</b>GTEx 组织水平极低（垂体 0.41 TPM 为最高）；Tabula Sapiens 巨噬细胞 10.6 CPM（specificity 0.87）；肥大细胞不在图谱覆盖内（表达盲区，以文献补位）。<br>
+  <b>遗传约束：</b>LOF oe=0.72（95%CI 0.54–0.98），未达显著缺失约束 → 功能缺失人群耐受。<br>
+  <b>交通灯：</b>celltypeSpecificity 0.949、celltypeDistribution 0.941、maxClinicalStage 0.7、tissueDistribution 0.444；hasPocket 0、hasLigand 0、mouseKOScore 0、geneEssentiality 0、geneticConstraint 0.016。<br>
+  <b>小鼠 KO（Siglece）：</b>abnormal neutrophil physiology（MP:0002463）、abnormal macrophage physiology（MP:0002451），非致命。</div>
+  <h4><span class="dot">◆</span>现实管线信源（2026-08-14 检索）</h4>
+  <div class="ref">
+  <b>Allakos 2024-01-16 8-K / PR（SEC 档案 allk-ex99_2.htm）：</b>MAVERICK（NCT05528861）与 ATLAS Ⅱ 期未达主要终点，终止 lirentelimab 全部开发、裁员 ~50%。MAVERICK 数据：UAS7 −7.9（−27%）vs −8.4（−26%）NS；UAS7=0 6% vs 0% NS；嗜酸粒 −95% vs +9%。<br>
+  <b>Allakos 2025-01-27 PR：</b>AK006 Phase 1 CSU 队列（NCT06072157）未显示治疗活性（UAS7 −8.2 vs −12.4；CR 9% vs 9%），终止 AK006、裁员 ~75%。<br>
+  <b>Allakos 2024-06-10 PR：</b>AK006 皮下给药健康受试者 98% 受体占有（720mg）、半衰期 12–22 天。<br>
+  <b>ClinicalTrials.gov：</b>NCT03436797（Ⅱa POC，COMPLETED）、NCT05528861（Ⅱb，TERMINATED）、NCT06072157（AK006 Phase 1，Active, not recruiting）。<br>
+  <b>PharmaDia / PharmaSnap：</b>lirentelimab 中国无申报（NMPA/CDE 无记录）。</div>
+  <h4><span class="dot">◆</span>关键文献（Europe PMC）</h4>
+  <div class="ref">
+  <b>PMID 34954198（2022）：</b>Altrichter 等——lirentelimab 抗组胺难治慢性/诱导性荨麻疹开放标签 POC（Ⅱa 阳性）。<br>
+  <b>PMID 37605867（2024）：</b>Mast cell silencing: A novel therapeutic approach for urticaria and other mast cell-mediated diseases（机制综述）。<br>
+  <b>PMID 37413923（2023）：</b>Siglecs as potential targets of therapy in human mast cell- and/or eosinophil-associated diseases（Siglec 治疗靶点综述）。<br>
+  <b>PMID 40845419（2025）：</b>Chronic spontaneous urticaria: update on pathogenesis and therapeutic implications（含 Siglec-8/Siglec-6 临床进展综述）。</div>
+  <h4><span class="dot">◆</span>结构生物学记录（PDB）</h4>
+  <div class="small">2N7A / 2N7B（2016，NMR，凝集素结构域 ± 唾液酸配体）；7QU6 / 7QUI（2023-01，X-RAY，N 端结构域）；7QUH（2023-05，X-RAY，Siglec-8 与治疗性 Fab AK002 复合物）。来源：RCSB/PDBe，UniProt Q9NYZ4 映射。</div>
+  <h4><span class="dot">◆</span>查询方法</h4>
+  <div class="small">Open Targets Platform GraphQL API v4（https://api.platform.opentargets.org/api/v4/graphql），数据版本 platform2606（month=06, year=2026）；查询时间 2026-08-14；脚本 otp_query.py / europepmc_titles / rcsb_check.py；WebSearch 检索公司 PR、SEC、ClinicalTrials.gov、PharmaDia、Europe PMC。五步合成法依据框架 framework.md（OTP 靶标评估技能库）。</div>
+</div>
+
+<div class="footer">
+  SIGLEC8 × CSU — Open Targets Platform 靶标评估 · 数据版本 platform2606 · 生成于 2026-08-14<br>
+  本报告为研究决策支持材料，不构成投资、立项或临床开发的法律/医学建议。
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>肥胖症小分子药物靶标评估与排序报告</title>
+<style>
+:root{--bg:#f5f6f8;--card:#ffffff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+--blue:#2563eb;--red:#d93025;--amber:#e37400;--teal:#0f9d8f;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;line-height:1.65;padding:28px 18px 60px;}
+.wrap{max-width:1180px;margin:0 auto;}
+h1{font-size:26px;letter-spacing:.5px;}
+h2{font-size:20px;margin:38px 0 14px;padding-left:10px;border-left:4px solid var(--blue);}
+h3{font-size:16px;margin:20px 0 10px;color:#111827;}
+.sub{color:var(--muted);font-weight:400;font-size:12px;}
+.hero{background:linear-gradient(135deg,#1a3a6b,#2563eb);color:#fff;border-radius:14px;padding:26px 30px;margin-bottom:22px;}
+.hero .meta{font-size:13px;opacity:.85;margin-top:8px;}
+.hero .tags{margin-top:12px;}
+.tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:2px 12px;font-size:12px;margin-right:8px;}
+.kpis{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0 8px;}
+.kpi{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;}
+.kpi b{font-size:22px;color:var(--blue);display:block;}
+.kpi span{font-size:12.5px;color:var(--muted);}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;font-size:13.5px;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+th{background:#eef1f6;text-align:left;padding:10px 8px;font-size:12.5px;color:#374151;white-space:nowrap;}
+td{padding:9px 8px;border-top:1px solid var(--line);vertical-align:middle;}
+tr:hover td{background:#f8fafc;}
+.rank{font-weight:700;color:var(--blue);width:36px;}
+.sym{min-width:150px;}
+.total{font-size:16px;color:var(--red);}
+.tier{color:#fff;font-size:11.5px;border-radius:999px;padding:2px 10px;white-space:nowrap;}
+.bar{position:relative;background:#eef1f6;height:16px;border-radius:8px;min-width:70px;}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:8px;opacity:.85;}
+.bval{position:absolute;right:5px;top:0;font-size:10.5px;line-height:16px;color:#374151;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.rank-badge{color:#fff;font-weight:700;width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;}
+.tname{font-size:19px;font-weight:800;}
+.tname-cn{color:var(--muted);font-size:13px;}
+.tscore{font-size:14px;font-weight:700;color:var(--red);margin-left:auto;}
+.tier-sm{color:#fff;font-size:11px;border-radius:999px;padding:2px 10px;}
+.lead{color:#374151;margin-bottom:10px;font-size:14px;}
+.kv{display:flex;gap:10px;padding:6px 0;border-top:1px dashed #f0f1f4;font-size:13.5px;}
+.kv b{flex:0 0 96px;color:var(--blue);font-size:13px;}
+.angle{display:flex;gap:10px;padding:9px 12px;margin-top:8px;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;font-size:13.5px;}
+.angle b{flex:0 0 96px;color:var(--amber);}
+.subscore{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.subscore span{background:#f0f4ff;color:#2563eb;border-radius:999px;padding:2px 12px;font-size:12px;}
+.nr-card{background:var(--card);border:1px solid var(--line);border-left:4px solid #80868b;border-radius:10px;padding:12px 16px;margin-bottom:10px;font-size:13.5px;}
+.nr-head{display:flex;gap:10px;align-items:baseline;margin-bottom:6px;}
+.note{background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:12px 16px;font-size:13px;color:#3730a3;margin:14px 0;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:900px){.grid2{grid-template-columns:1fr;}}
+ol.ref{font-size:12.8px;color:#374151;padding-left:20px;}
+ol.ref li{margin-bottom:5px;}
+.foot{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;}
+</style></head>
+<body><div class="wrap">
+
+<div class="hero">
+  <h1>肥胖症（减肥）领域 · 小分子创新药靶标评估与排序报告</h1>
+  <div class="meta">数据来源：Open Targets Platform（证据框架）、PubMed 文献计量（E-utilities）、ClinicalTrials.gov 及企业公开披露（2025-2026）｜报告日期：2026-08-06</div>
+  <div class="tags"><span class="tag">23 个候选靶标</span><span class="tag">5 维加权评分</span><span class="tag">3 层推荐梯队</span><span class="tag">聚焦小分子可成药性</span></div>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><b>TOP 3</b><span>GLP1R / MC4R / GIPR —— 遗传+临床双验证且小分子窗口已打开</span></div>
+  <div class="kpi"><b>5 维模型</b><span>遗传学证据 20% · 临床验证 25% · 小分子可成药性 20% · 竞争格局与创新空间 20% · 机制与安全 15%</span></div>
+  <div class="kpi"><b>2026 标志事件</b><span>FDA 批准首个口服小分子 GLP-1RA（orforglipron，2026-04-01）</span></div>
+</div>
+
+<h2>一、方法学与评分框架</h2>
+<div class="note">
+ <b>数据源说明：</b>本报告 OT 证据已通过官方 GraphQL API（<code>https://api.platform.opentargets.org/api/v4/graphql</code>）<b>直接实测</b>（2026-08-06）：查询疾病节点 <code>MONDO_0011122</code>（obesity disorder，共 9702 个关联靶标）的 <code>associatedTargets</code>，取 <code>orderByScore:"score"</code> 前 4000 名，逐一匹配本报告 23 个候选靶标获得真实关联分与排名（见“OT 关联分”列，0-1 分、排名为疾病视角）。其余证据（GWAS/单基因、临床管线、文献热度）来自 PubMed E-utilities 实测与公开来源。五维评分由本报告基于上述证据+公开医药情报独立评定，供研发立项参考，不构成投资或临床建议。
+</div>
+<div class="grid2">
+  <div>
+    <h3>五维评分（每维 0-10，加权合成）</h3>
+    <table><tr><th>维度</th><th>权重</th><th>含义</th></tr>
+    <tr><td><b>遗传学证据</b></td><td>20%</td><td>GWAS / 罕见变异 / 单基因肥胖 / 孟德尔随机化</td></tr>
+    <tr><td><b>临床验证</b></td><td>25%</td><td>已上市或临床阳性数据（含同类机制）</td></tr>
+    <tr><td><b>小分子可成药性</b></td><td>20%</td><td>是否有小分子临床先例 / 口袋可行性</td></tr>
+    <tr><td><b>竞争格局与创新空间</b></td><td>20%</td><td>赛道拥挤度越低、创新窗口越大，得分越高</td></tr>
+    <tr><td><b>机制与安全</b></td><td>15%</td><td>机制成熟度与安全性风险画像</td></tr></table>
+  </div>
+  <div>
+    <h3>打分说明</h3>
+    <ul style="font-size:13.5px;color:#374151;padding-left:20px;">
+      <li>"临床验证"综合同类机制（如 tirzepatide 验证 GIPR）；</li>
+      <li>"创新空间"对已上市/已拥挤靶点（GLP1R）给低分，对无人区给高分；</li>
+      <li>文献热度（PubMed 实测计数）作为定性佐证：GLP1R 7639、LEP 23420、MC4R 1875、AMPK 5224 等；</li>
+      <li>总分为加权平均，保留两位小数；梯队按总分+风险画像划分。</li>
+    </ul>
+  </div>
+</div>
+
+<h2>二、靶标综合评分排序总表</h2>
+<table>
+  <tr><th>排名</th><th>靶标</th><th>OT 关联分</th><th>遗传学<br>20%</th><th>临床验证<br>25%</th><th>小分子<br>20%</th><th>创新空间<br>20%</th><th>机制安全<br>15%</th><th>综合</th><th>梯队</th></tr>
+  
+    <tr>
+      <td class="rank">1</td>
+      <td class="sym"><b>GLP1R</b><div class="sub">胰高血糖素样肽-1受体</div></td>
+      <td class="otcell"><b>0.695</b><div class="sub">肥胖排名 8</div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:100.0%;background:#2563eb"></div><span class="bval">10.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:100.0%;background:#2563eb"></div><span class="bval">10.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:85.0%;background:#2563eb"></div><span class="bval">8.5</span></div></td>
+      <td class="total"><b>7.97</b></td>
+      <td><span class="tier" style="background:#d93025">第一梯队·首选</span></td>
+    </tr>
+    <tr>
+      <td class="rank">2</td>
+      <td class="sym"><b>MC4R</b><div class="sub">黑素皮质素-4受体</div></td>
+      <td class="otcell"><b>0.833</b><div class="sub">肥胖排名 1</div></td>
+      <td><div class="bar"><div class="fill" style="width:100.0%;background:#2563eb"></div><span class="bval">10.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:85.0%;background:#2563eb"></div><span class="bval">8.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:65.0%;background:#2563eb"></div><span class="bval">6.5</span></div></td>
+      <td class="total"><b>7.80</b></td>
+      <td><span class="tier" style="background:#d93025">第一梯队·首选</span></td>
+    </tr>
+    <tr>
+      <td class="rank">3</td>
+      <td class="sym"><b>GIPR</b><div class="sub">葡萄糖依赖性促胰岛素多肽受体</div></td>
+      <td class="otcell"><b>0.674</b><div class="sub">肥胖排名 9</div></td>
+      <td><div class="bar"><div class="fill" style="width:80.0%;background:#2563eb"></div><span class="bval">8.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:60.0%;background:#2563eb"></div><span class="bval">6.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:75.0%;background:#2563eb"></div><span class="bval">7.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:80.0%;background:#2563eb"></div><span class="bval">8.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:75.0%;background:#2563eb"></div><span class="bval">7.5</span></div></td>
+      <td class="total"><b>7.32</b></td>
+      <td><span class="tier" style="background:#d93025">第一梯队·首选</span></td>
+    </tr>
+    <tr>
+      <td class="rank">4</td>
+      <td class="sym"><b>AMYR×CALCR</b><div class="sub">胰淀素/降钙素受体复合体(DACRA)</div></td>
+      <td class="otcell"><b>0.340</b><div class="sub">肥胖排名 380</div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:55.0%;background:#2563eb"></div><span class="bval">5.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:75.0%;background:#2563eb"></div><span class="bval">7.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:80.0%;background:#2563eb"></div><span class="bval">8.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:55.0%;background:#2563eb"></div><span class="bval">5.5</span></div></td>
+      <td class="total"><b>6.20</b></td>
+      <td><span class="tier" style="background:#e37400">第二梯队·重点布局</span></td>
+    </tr>
+    <tr>
+      <td class="rank">5</td>
+      <td class="sym"><b>CNR1</b><div class="sub">大麻素受体-1(CB1)</div></td>
+      <td class="otcell"><b>0.634</b><div class="sub">肥胖排名 12</div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:65.0%;background:#2563eb"></div><span class="bval">6.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:55.0%;background:#2563eb"></div><span class="bval">5.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td class="total"><b>6.03</b></td>
+      <td><span class="tier" style="background:#e37400">第二梯队·重点布局</span></td>
+    </tr>
+    <tr>
+      <td class="rank">6</td>
+      <td class="sym"><b>GHSR</b><div class="sub">生长激素促泌素受体(饥饿素受体)</div></td>
+      <td class="otcell"><b>0.072</b><div class="sub">肥胖排名 1951</div></td>
+      <td><div class="bar"><div class="fill" style="width:50.0%;background:#2563eb"></div><span class="bval">5.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:55.0%;background:#2563eb"></div><span class="bval">5.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:60.0%;background:#2563eb"></div><span class="bval">6.0</span></div></td>
+      <td class="total"><b>5.80</b></td>
+      <td><span class="tier" style="background:#e37400">第二梯队·重点布局</span></td>
+    </tr>
+    <tr>
+      <td class="rank">7</td>
+      <td class="sym"><b>GCGR</b><div class="sub">胰高血糖素受体</div></td>
+      <td class="otcell"><b>0.411</b><div class="sub">肥胖排名 131</div></td>
+      <td><div class="bar"><div class="fill" style="width:55.0%;background:#2563eb"></div><span class="bval">5.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:50.0%;background:#2563eb"></div><span class="bval">5.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:80.0%;background:#2563eb"></div><span class="bval">8.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:50.0%;background:#2563eb"></div><span class="bval">5.0</span></div></td>
+      <td class="total"><b>5.40</b></td>
+      <td><span class="tier" style="background:#e37400">第二梯队·重点布局</span></td>
+    </tr>
+    <tr>
+      <td class="rank">8</td>
+      <td class="sym"><b>SLC5A1/2</b><div class="sub">钠-葡萄糖共转运蛋白1/2</div></td>
+      <td class="otcell"><b>0.131</b><div class="sub">肥胖排名 1131</div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:50.0%;background:#2563eb"></div><span class="bval">5.0</span></div></td>
+      <td class="total"><b>4.98</b></td>
+      <td><span class="tier" style="background:#e37400">第二梯队·重点布局</span></td>
+    </tr>
+    <tr>
+      <td class="rank">9</td>
+      <td class="sym"><b>HTR2C</b><div class="sub">5-羟色胺2C受体</div></td>
+      <td class="otcell"><b>0.568</b><div class="sub">肥胖排名 20</div></td>
+      <td><div class="bar"><div class="fill" style="width:60.0%;background:#2563eb"></div><span class="bval">6.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:30.0%;background:#2563eb"></div><span class="bval">3.0</span></div></td>
+      <td class="total"><b>4.98</b></td>
+      <td><span class="tier" style="background:#80868b">不推荐(小分子视角)</span></td>
+    </tr>
+    <tr>
+      <td class="rank">10</td>
+      <td class="sym"><b>NR3C1</b><div class="sub">糖皮质激素受体(GR)</div></td>
+      <td class="otcell"><b>0.126</b><div class="sub">肥胖排名 1161</div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td class="total"><b>4.95</b></td>
+      <td><span class="tier" style="background:#e37400">第二梯队·重点布局</span></td>
+    </tr>
+    <tr>
+      <td class="rank">11</td>
+      <td class="sym"><b>PRKAA1</b><div class="sub">AMP活化蛋白激酶(AMPK)</div></td>
+      <td class="otcell"><b>0.114</b><div class="sub">肥胖排名 1255</div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:50.0%;background:#2563eb"></div><span class="bval">5.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:75.0%;background:#2563eb"></div><span class="bval">7.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:25.0%;background:#2563eb"></div><span class="bval">2.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:65.0%;background:#2563eb"></div><span class="bval">6.5</span></div></td>
+      <td class="total"><b>4.92</b></td>
+      <td><span class="tier" style="background:#e37400">第二梯队·重点布局</span></td>
+    </tr>
+    <tr>
+      <td class="rank">12</td>
+      <td class="sym"><b>HSD11B1</b><div class="sub">11β-羟基类固醇脱氢酶1</div></td>
+      <td class="otcell"><b>0.116</b><div class="sub">肥胖排名 1238</div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:30.0%;background:#2563eb"></div><span class="bval">3.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td class="total"><b>4.83</b></td>
+      <td><span class="tier" style="background:#1a73a8">第三梯队·机会型</span></td>
+    </tr>
+    <tr>
+      <td class="rank">13</td>
+      <td class="sym"><b>ADRB3</b><div class="sub">β3-肾上腺素能受体</div></td>
+      <td class="otcell"><b>0.464</b><div class="sub">肥胖排名 75</div></td>
+      <td><div class="bar"><div class="fill" style="width:45.0%;background:#2563eb"></div><span class="bval">4.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:30.0%;background:#2563eb"></div><span class="bval">3.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:60.0%;background:#2563eb"></div><span class="bval">6.0</span></div></td>
+      <td class="total"><b>4.75</b></td>
+      <td><span class="tier" style="background:#1a73a8">第三梯队·机会型</span></td>
+    </tr>
+    <tr>
+      <td class="rank">14</td>
+      <td class="sym"><b>FASN</b><div class="sub">脂肪酸合酶</div></td>
+      <td class="otcell"><b>0.108</b><div class="sub">肥胖排名 1336</div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:80.0%;background:#2563eb"></div><span class="bval">8.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:55.0%;background:#2563eb"></div><span class="bval">5.5</span></div></td>
+      <td class="total"><b>4.70</b></td>
+      <td><span class="tier" style="background:#1a73a8">第三梯队·机会型</span></td>
+    </tr>
+    <tr>
+      <td class="rank">15</td>
+      <td class="sym"><b>DGAT1</b><div class="sub">二酰甘油酰基转移酶1</div></td>
+      <td class="otcell"><b>0.051</b><div class="sub">肥胖排名 2706</div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:25.0%;background:#2563eb"></div><span class="bval">2.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td class="total"><b>4.62</b></td>
+      <td><span class="tier" style="background:#1a73a8">第三梯队·机会型</span></td>
+    </tr>
+    <tr>
+      <td class="rank">16</td>
+      <td class="sym"><b>FTO</b><div class="sub">FTO RNA去甲基化酶</div></td>
+      <td class="otcell"><b>0.697</b><div class="sub">肥胖排名 7</div></td>
+      <td><div class="bar"><div class="fill" style="width:60.0%;background:#2563eb"></div><span class="bval">6.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:5.0%;background:#2563eb"></div><span class="bval">0.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:60.0%;background:#2563eb"></div><span class="bval">6.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:65.0%;background:#2563eb"></div><span class="bval">6.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td class="total"><b>4.42</b></td>
+      <td><span class="tier" style="background:#1a73a8">第三梯队·机会型</span></td>
+    </tr>
+    <tr>
+      <td class="rank">17</td>
+      <td class="sym"><b>MCHR1</b><div class="sub">黑色素聚集激素受体1</div></td>
+      <td class="otcell"><b>0.058</b><div class="sub">肥胖排名 2406</div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td class="total"><b>4.40</b></td>
+      <td><span class="tier" style="background:#1a73a8">第三梯队·机会型</span></td>
+    </tr>
+    <tr>
+      <td class="rank">18</td>
+      <td class="sym"><b>DGAT2</b><div class="sub">二酰甘油酰基转移酶2</div></td>
+      <td class="otcell"><b>0.036</b><div class="sub">肥胖排名 3652</div></td>
+      <td><div class="bar"><div class="fill" style="width:30.0%;background:#2563eb"></div><span class="bval">3.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:25.0%;background:#2563eb"></div><span class="bval">2.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:50.0%;background:#2563eb"></div><span class="bval">5.0</span></div></td>
+      <td class="total"><b>4.15</b></td>
+      <td><span class="tier" style="background:#1a73a8">第三梯队·机会型</span></td>
+    </tr>
+    <tr>
+      <td class="rank">19</td>
+      <td class="sym"><b>THRB</b><div class="sub">甲状腺激素受体β</div></td>
+      <td class="otcell"><b>0.349</b><div class="sub">肥胖排名 320</div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:25.0%;background:#2563eb"></div><span class="bval">2.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:60.0%;background:#2563eb"></div><span class="bval">6.0</span></div></td>
+      <td class="total"><b>4.12</b></td>
+      <td><span class="tier" style="background:#1a73a8">第三梯队·机会型</span></td>
+    </tr>
+    <tr>
+      <td class="rank">20</td>
+      <td class="sym"><b>LEPR</b><div class="sub">瘦素受体</div></td>
+      <td class="otcell"><b>0.759</b><div class="sub">肥胖排名 3</div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:15.0%;background:#2563eb"></div><span class="bval">1.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:40.0%;background:#2563eb"></div><span class="bval">4.0</span></div></td>
+      <td class="total"><b>3.98</b></td>
+      <td><span class="tier" style="background:#80868b">不推荐(小分子视角)</span></td>
+    </tr>
+    <tr>
+      <td class="rank">21</td>
+      <td class="sym"><b>NPY5R</b><div class="sub">神经肽Y5受体</div></td>
+      <td class="otcell"><b>0.370</b><div class="sub">肥胖排名 270</div></td>
+      <td><div class="bar"><div class="fill" style="width:25.0%;background:#2563eb"></div><span class="bval">2.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:15.0%;background:#2563eb"></div><span class="bval">1.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:90.0%;background:#2563eb"></div><span class="bval">9.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:55.0%;background:#2563eb"></div><span class="bval">5.5</span></div></td>
+      <td class="total"><b>3.90</b></td>
+      <td><span class="tier" style="background:#80868b">不推荐(小分子视角)</span></td>
+    </tr>
+    <tr>
+      <td class="rank">22</td>
+      <td class="sym"><b>GDF15/GFRAL</b><div class="sub">生长分化因子15/GFRAL</div></td>
+      <td class="otcell"><b>0.138</b><div class="sub">肥胖排名 1101</div></td>
+      <td><div class="bar"><div class="fill" style="width:65.0%;background:#2563eb"></div><span class="bval">6.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:30.0%;background:#2563eb"></div><span class="bval">3.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:5.0%;background:#2563eb"></div><span class="bval">0.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:20.0%;background:#2563eb"></div><span class="bval">2.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:35.0%;background:#2563eb"></div><span class="bval">3.5</span></div></td>
+      <td class="total"><b>3.07</b></td>
+      <td><span class="tier" style="background:#80868b">不推荐(小分子视角)</span></td>
+    </tr>
+    <tr>
+      <td class="rank">23</td>
+      <td class="sym"><b>FGF21/KLB</b><div class="sub">成纤维细胞生长因子21/β-Klotho</div></td>
+      <td class="otcell"><b>0.131</b><div class="sub">肥胖排名 1134</div></td>
+      <td><div class="bar"><div class="fill" style="width:50.0%;background:#2563eb"></div><span class="bval">5.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:30.0%;background:#2563eb"></div><span class="bval">3.0</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:8.0%;background:#2563eb"></div><span class="bval">0.8</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:15.0%;background:#2563eb"></div><span class="bval">1.5</span></div></td>
+      <td><div class="bar"><div class="fill" style="width:50.0%;background:#2563eb"></div><span class="bval">5.0</span></div></td>
+      <td class="total"><b>2.96</b></td>
+      <td><span class="tier" style="background:#80868b">不推荐(小分子视角)</span></td>
+    </tr>
+</table>
+
+<h2>三、推荐梯队解读</h2>
+<div class="grid2">
+  <div>
+    <h3>🥇 第一梯队（首选立项）</h3>
+    <p style="font-size:13.5px;color:#374151;">GLP1R、MC4R、GIPR：遗传学与临床双验证，且已有小分子临床证明或强化学可行性。<b>GLP1R</b> 差异化空间收窄但市场最大；<b>MC4R</b> 小分子激动剂+校正剂进入临床、竞争相对少、罕见病孤儿药路径清晰；<b>GIPR</b> 激动/拮抗双向皆有效、小分子几乎空白，创新空间最大。</p>
+  </div>
+  <div>
+    <h3>🥈 第二梯队（重点布局）</h3>
+    <p style="font-size:13.5px;color:#374151;">CNR1（外周限制是关键难点）、GHSR（LEAP2 复兴、防反弹定位）、GCGR（小分子联合）、SLC5A1/2（证据温和）、NR3C1（高皮质醇亚群精准路径）、AMPK（联合机制）。风险与机会并存，适合作为第二、三条管线。</p>
+  </div>
+  <div>
+    <h3>🥉 第三梯队（机会型 / 高风险）</h3>
+    <p style="font-size:13.5px;color:#374151;">FTO（遗传信号极强但因果链未定）、MCHR1（转化失败史）、DGAT1/2、HSD11B1、ADRB3、FASN、THRB：机制或临床存在硬伤，仅在特殊差异化设计下值得探索。</p>
+  </div>
+  <div>
+    <h3>⛔ 不推荐（小分子视角）</h3>
+    <p style="font-size:13.5px;color:#374151;">LEPR、IAPP、GDF15/GFRAL、FGF21/KLB：生物学有意义但模态为生物药/多肽，小分子不可及；HTR2C、NPY5R：临床历史失败或撤市污点。这些靶点更适合抗体/多肽平台企业。</p>
+  </div>
+</div>
+
+<h2>四、重点靶标详解</h2>
+
+    <div class="card" id="t-GLP1R">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#d93025">1</span>
+        <span class="tname">GLP1R</span>
+        <span class="tname-cn">肠促胰素受体，食欲与体重调控的“黄金靶点”，小分子可行性已被完全验证。</span>
+        <span class="tscore">综合 7.97</span>
+        <span class="tier-sm" style="background:#d93025">第一梯队·首选</span>
+      </div>
+      <p class="lead">肠促胰素受体，食欲与体重调控的“黄金靶点”，小分子可行性已被完全验证。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.695（肥胖相关 9702 个靶标中排名第 8）；datatype 含 genetic_association/literature/known_drug 多源证据。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>多个 BMI/肥胖 GWAS 信号富集于 GLP1R 附近；功能实验证实 GLP-1 通路对食欲的强效抑制。</span></div>
+      <div class="kv"><b>临床验证</b><span>orforglipron(FDA 2026-04-01 批准，Foundayo)：首个口服小分子 GLP-1RA 减重药，ATTAIN-1 72 周最高剂量 -12.4%（on-treatment），且无空腹限制、50 天闪电审批；口服司美格鲁肽 25mg 2025-12 获批；danuglipron 因肝酶/DILI 信号 2025-04 终止。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>口服小分子激动剂已上市（orforglipron）；偏向性激动（ASC30 等）与新一代候选在研。</span></div>
+      <div class="kv"><b>竞争格局</b><span>赛道极度拥挤（口服+注射多产品已获批）；但“口服+无进食限制+偏倚信号/超长效/复方”仍留差异化窗口。</span></div>
+      <div class="kv"><b>安全考量</b><span>GI 不良反应（恶心/便秘/腹泻）为主、甲状腺 C 细胞肿瘤黑框警告；长期安全性已获大规模数据支持。</span></div>
+      <div class="angle"><b>创新机会点</b><span>不建议做“再一个 GLP-1 激动剂”；机会在于：①偏向性(偏倚)激动改善耐受 ②超长效口服 ③GLP-1+ 外周 CB1/肌保护(actRII)等复方 ④减脂不减肌。</span></div>
+      <div class="subscore">
+        <span>遗传 9.0</span><span>临床 10.0</span>
+        <span>成药 10.0</span><span>空间 2.0</span>
+        <span>安全 8.5</span>
+      </div>
+    </div>
+    <div class="card" id="t-MC4R">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#d93025">2</span>
+        <span class="tname">MC4R</span>
+        <span class="tname-cn">下丘脑瘦素-黑素皮质素通路核心受体；单基因肥胖最常见病因，遗传学证据最强。</span>
+        <span class="tscore">综合 7.80</span>
+        <span class="tier-sm" style="background:#d93025">第一梯队·首选</span>
+      </div>
+      <p class="lead">下丘脑瘦素-黑素皮质素通路核心受体；单基因肥胖最常见病因，遗传学证据最强。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.833（排名第 1）；MC4R 突变是单基因肥胖最常见原因（美国约 7-10 万人），GWAS 亦显著。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>MC4R 功能缺失突变 → 贪食+早发肥胖；为减重领域遗传学证据强度最高的靶点之一（10 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>setmelanotide（Rhythm，肽类激动剂）已获批用于 POMC/LEPR 缺乏罕见肥胖；小分子新军：PL7737（Palatin 口服小分子激动剂，IND 推进中，2026H1 进 I 期，适应症下丘脑性肥胖/PWS）、bivamelagon（LG Chem/Rhythm 小分子激动剂，II 期）、CGX-926（Congruence 首创口服 MC4R“校正剂”药理学伴侣，2026-03 首例给药，I/1b 期）；BMT-801：布美诺肽+tirzepatide 复方 II 期显示增效并防反弹。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>口服小分子激动剂与校正剂（chaperone）双模态均已进入临床，小分子可成药性高（9 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>竞争者有限（setmelanotide + 3-4 个小分子管线），相对不拥挤；“校正剂”方向几乎无人竞争。</span></div>
+      <div class="kv"><b>安全考量</b><span>主要顾虑：血压升高（setmelanotide 有该信号）、色素沉着、恶心；下一代选择性激动剂拟规避。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会：①MC4R 激动剂 + 肠促胰素复方（防反弹）②MC4R 校正剂/偏向性激动剂差异化 ③下丘脑性肥胖、PWS 等罕见适应症（孤儿药路径）。</span></div>
+      <div class="subscore">
+        <span>遗传 10.0</span><span>临床 8.5</span>
+        <span>成药 9.0</span><span>空间 4.5</span>
+        <span>安全 6.5</span>
+      </div>
+    </div>
+    <div class="card" id="t-GIPR">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#d93025">3</span>
+        <span class="tname">GIPR</span>
+        <span class="tname-cn">GIP 受体</span>
+        <span class="tscore">综合 7.32</span>
+        <span class="tier-sm" style="background:#d93025">第一梯队·首选</span>
+      </div>
+      <p class="lead">GIP 受体：'激动 vs 拮抗'双向均有效的 paradox 靶点，小分子窗口刚刚打开。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.674（排名第 9）；蛋白截短变异（loss-of-function）与更瘦表型相关——人类遗传学强验证。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>GIPR 功能缺失变异 → 更瘦/更低 BMI（MR 证据）；GLP-1/GIP 双靶向已被 tirzepatide 临床证明。</span></div>
+      <div class="kv"><b>临床验证</b><span>tirzepatide（GIP/GLP-1 双激动肽）已上市并成为减重疗效标杆（SURMOUNT-1 最高 -20.9%）；GIPR 拮抗剂 AT-7687（Antag，FIC）2025 启动 I 期（topline 2025Q4），拟与 GLP-1 联用；Pfizer PF-07976016（口服 GIP 类分子）IIa 期（NCT06717425）进行中。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>口服小分子 GIPR 调节剂尚无临床验证；RenaissThera 等公司（激动+拮抗双方向）处于发现/先导阶段——小分子可成药性 7.5 分（预期可行但未被验证）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>GIPR 特异性小分子几乎空白；激动/拮抗两种模态均有依据（paradox），机制之争即创新空间（8 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>肽类工具提示耐受性良好（GI 副作用低于 GLP-1）；拮抗剂长期安全性待验证。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会：①口服小分子 GIPR 拮抗剂（单药或 GLP-1 联用）②口服 GIPR 激动剂差异化 ③阐明 GIPR paradox 的选择性信号（bias）④组合 GIP/GLP-1/GCG 三靶口服分子。</span></div>
+      <div class="subscore">
+        <span>遗传 8.0</span><span>临床 6.0</span>
+        <span>成药 7.5</span><span>空间 8.0</span>
+        <span>安全 7.5</span>
+      </div>
+    </div>
+    <div class="card" id="t-AMYR×CALCR">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#e37400">4</span>
+        <span class="tname">AMYR×CALCR</span>
+        <span class="tname-cn">胰淀素/降钙素受体复合体（DACRA 靶标）</span>
+        <span class="tscore">综合 6.20</span>
+        <span class="tier-sm" style="background:#e37400">第二梯队·重点布局</span>
+      </div>
+      <p class="lead">胰淀素/降钙素受体复合体（DACRA 靶标）：口服小分子可行性已被 Structure Therapeutics 临床验证，“减脂不减肌”叙事核心。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.340（以复合体核心亚基 CALCR 计，肥胖排名约 380）；RAMP1 0.117 / RAMP2 0.112 / RAMP3 0.114 / IAPP 0.087——遗传证据中等偏弱，临床药理证据为主；小分子可行性已由 Structure 的 ACCG-2671（2025-12 进 I 期）验证。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>amylin/降钙素通路的人类遗传学证据弱（罕见变异有限），证据核心来自药理与临床（4.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>多肽路径：cagrilintide、amycretin（Novo，amylin 类似物+GLP-1）III 期（NEJM 2025）；DACRA 肽类 KBP-336（礼来-KeyBio）II 期（2025-01 启动，肥胖+膝OA）。小分子路径：ACCG-2671（Structure）口服小分子 DACRA 2025-12 进入 I 期（行业首个）；ACCG-3535（第二个 DACRA 候选）2026H2 启动 I 期；SARA 与 GLP-1R+Amylin 口服组合在临床前。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>2025-12 起已有口服小分子 DACRA 进入 I 期（ACCG-2671）——小分子可行性临床验证中（7.5 分）；ACCG-3535 体外 hAMY3R/hCTR 结合 Ki<0.5nM、cAMP EC50 不逊于 cagrilintide。</span></div>
+      <div class="kv"><b>竞争格局</b><span>口服小分子 DACRA/SARA 几乎空白：Structure 一家领先（ACCG-2671/3535），礼来-KeyBio 走多肽；差异化空间大（8 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>GI 副作用（恶心/呕吐）、长期骨密度与骨骼安全需随访（5.5 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会：①口服小分子 DACRA/SARA 单药或与口服 GLP-1（aleniglipron 类）联用 ②“减脂不减肌+骨保护”差异化叙事 ③固定剂量复方（口服 GLP-1+DACRA）④注意 GI 耐受与骨安全为关键临床风险。</span></div>
+      <div class="subscore">
+        <span>遗传 4.5</span><span>临床 5.5</span>
+        <span>成药 7.5</span><span>空间 8.0</span>
+        <span>安全 5.5</span>
+      </div>
+    </div>
+    <div class="card" id="t-CNR1">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#e37400">5</span>
+        <span class="tname">CNR1</span>
+        <span class="tname-cn">大麻素 CB1 受体反相激动剂</span>
+        <span class="tscore">综合 6.03</span>
+        <span class="tier-sm" style="background:#e37400">第二梯队·重点布局</span>
+      </div>
+      <p class="lead">大麻素 CB1 受体反相激动剂：减重机制获 IIa 期阳性验证，瓶颈在 CNS 精神副作用。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.634（排名第 12）；以临床药理证据为主，遗传学证据中等。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>CB1 基因变异与 BMI 关联信号弱于肠促胰素轴；证据以药理/临床为主（4.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>利莫那班 2006 上市、2008 因抑郁/自杀撤市；monlunabant（Novo/Inversago，原 INV-202）IIa 期阳性（Lancet D&E 2025）：16 周 LSM 较安慰剂 -6.4~-8.0 kg，但剂量依赖性 GI+精神副作用、脱落率 13-42%——疗效窗口与耐受性成关键。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>口服小分子反相激动剂成熟；'外周限制'设计（monlunabant）已实现部分中枢回避但仍见精神事件（9 分可成药）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>monlunabant 领先，真正外周不可入脑的下一代分子仍属蓝海；真·外周限制是差异化核心（5.5 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>历史教训深刻：精神副作用（抑郁/焦虑/自杀观念）为最大风险；需严格外周限制+剂量优化。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会：①外周高选择性（脑不可渗透）CB1 反相激动剂 ②CB1 偏向信号（β-arrestin）③与 GLP-1 联用降低剂量 ④代谢综合征人群适应症。</span></div>
+      <div class="subscore">
+        <span>遗传 4.5</span><span>临床 6.5</span>
+        <span>成药 9.0</span><span>空间 5.5</span>
+        <span>安全 4.0</span>
+      </div>
+    </div>
+    <div class="card" id="t-GHSR">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#e37400">6</span>
+        <span class="tname">GHSR</span>
+        <span class="tname-cn">饥饿素(ghrelin)受体</span>
+        <span class="tscore">综合 5.80</span>
+        <span class="tier-sm" style="background:#e37400">第二梯队·重点布局</span>
+      </div>
+      <p class="lead">饥饿素(ghrelin)受体：食欲唯一外周激素通路的枢纽；LEAP2 发现使该通路'复活'。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.072（排名约 1951，证据较弱）；通路价值主要来自功能学/LEAP2 临床前与人体机理研究。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>GHSR 变异影响食欲/生长轴；功能学研究强，人类 GWAS 中等（5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>历史上小分子反相激动剂/拮抗剂多次失败（数十年无成药）；2022 年发现内源拮抗/反相激动剂 LEAP2 后复兴：LA-LEAP2+司美格鲁肽在小鼠协同减重并防反弹（Diabetes 2025，PMID 40590720）；SILENCED 研究（NCT07171723，2025）在司美格鲁肽稳定治疗人群验证 LEAP2 阻断 GHSR 的效应。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>GHSR 小分子反相激动剂化学可行（历史上多类化合物），但现代设计未被充分探索（9 分可成药）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>通路虽旧、认知全新：减重维持/防反弹定位几乎无竞争者（5.5 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>关注 GH/生长轴扰动；LEAP2 肽类研究显示无厌恶反应、耐受良好（6 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会：①新一代 GHSR 小分子反相激动剂（单药或维持期联用）②LEAP2 拟肽/长效肽 ③'停药防反弹'适应症定位。</span></div>
+      <div class="subscore">
+        <span>遗传 5.0</span><span>临床 4.0</span>
+        <span>成药 9.0</span><span>空间 5.5</span>
+        <span>安全 6.0</span>
+      </div>
+    </div>
+    <div class="card" id="t-GCGR">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#e37400">7</span>
+        <span class="tname">GCGR</span>
+        <span class="tname-cn">胰高血糖素受体</span>
+        <span class="tscore">综合 5.40</span>
+        <span class="tier-sm" style="background:#e37400">第二梯队·重点布局</span>
+      </div>
+      <p class="lead">胰高血糖素受体：能量消耗增强机制，多靶肽主导，小分子窗口在联合治疗。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.411（排名第 131）；GCGR 功能缺失变异与代谢表型相关是主要遗传证据。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>GCGR 变异影响胰高血糖素信号与体重；GWAS 信号弱于 GLP1R/MC4R（5.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>retatrutide（GLP-1/GIP/GCG 三靶激动肽）III 期（TRIUMPH）显示超强减重潜力（肽类）；小分子 GCGR 拮抗剂（MK-0893、LY2409021）在 T2D 失败；SGLT2i+GCGR 拮抗剂联合在 T1D 研究（Diabetes Care 2025）。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>GCGR 小分子拮抗剂/调节剂化学可行性已证（多代化合物），但缺乏现代临床验证（8 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>三靶肽拥挤；小分子 GCGR 调节剂空白（3.5 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>低血糖风险、α 细胞增生/肝脏信号需关注（5 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会：①小分子 GCGR 部分拮抗与 GLP-1 口服联用 ②减肌风险控制的'增耗'机制 ③GCG 偏向信号。</span></div>
+      <div class="subscore">
+        <span>遗传 5.5</span><span>临床 5.0</span>
+        <span>成药 8.0</span><span>空间 3.5</span>
+        <span>安全 5.0</span>
+      </div>
+    </div>
+    <div class="card" id="t-SLC5A1-2">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#e37400">8</span>
+        <span class="tname">SLC5A1/2</span>
+        <span class="tname-cn">肠道+肾脏葡萄糖转运体</span>
+        <span class="tscore">综合 4.98</span>
+        <span class="tier-sm" style="background:#e37400">第二梯队·重点布局</span>
+      </div>
+      <p class="lead">肠道+肾脏葡萄糖转运体：'肠道机制'减重，临床验证有限且疗效温和。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.112-0.131（SLC5A1 排名 1276 / SLC5A2 排名 1131）；SGLT2 抑制的体重效应有 MR 支持。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>SGLT2 抑制→体重下降有 MR 证据；SGLT1 肠道机制亦有支持（4.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>licogliflozin（LIK066，SGLT1/2 双抑制）IIa 期：24 周 -0.45%~-3.83%（Obesity 2020），高剂量 GI 副作用明显，Novartis 已降优先级；sotagliflozin 获批用于 T2D（非肥胖适应症）。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>格列净类小分子化学成熟（9 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>已被格列净垄断，减重定位失败过（2 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>GI（腹泻/胀气）剂量依赖性（5 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会有限：肠道选择性 SGLT1 抑制与 GLP-1 联用或可探索，整体吸引力低。</span></div>
+      <div class="subscore">
+        <span>遗传 4.5</span><span>临床 4.5</span>
+        <span>成药 9.0</span><span>空间 2.0</span>
+        <span>安全 5.0</span>
+      </div>
+    </div>
+    <div class="card" id="t-HTR2C">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#80868b">9</span>
+        <span class="tname">HTR2C</span>
+        <span class="tname-cn">5-HT2C 受体</span>
+        <span class="tscore">综合 4.98</span>
+        <span class="tier-sm" style="background:#80868b">不推荐(小分子视角)</span>
+      </div>
+      <p class="lead">5-HT2C 受体：氯卡色林获批后因肿瘤信号撤市，历史包袱重。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.568（排名第 20）；5-HT2C 功能缺失→肥胖，人类证据中等。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>人类证据中等（6 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>氯卡色林 2012 获批、2020 撤市（癌症信号）；无活跃后续。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>小分子激动剂成熟（9 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>安全性历史污点（2 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>瓣膜病（5-HT2B）、癌症信号（3 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>不建议重启：除非外周/选择性解决 5-HT2B 交叉反应。</span></div>
+      <div class="subscore">
+        <span>遗传 6.0</span><span>临床 4.5</span>
+        <span>成药 9.0</span><span>空间 2.0</span>
+        <span>安全 3.0</span>
+      </div>
+    </div>
+    <div class="card" id="t-NR3C1">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#e37400">10</span>
+        <span class="tname">NR3C1</span>
+        <span class="tname-cn">糖皮质激素受体</span>
+        <span class="tscore">综合 4.95</span>
+        <span class="tier-sm" style="background:#e37400">第二梯队·重点布局</span>
+      </div>
+      <p class="lead">糖皮质激素受体：'高皮质醇亚群'精准医学路径，小分子成熟。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.126（排名第 1161）；皮质醇-库欣通路因果明确，常见肥胖 GWAS 信号弱。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>皮质醇通路与肥胖因果明确（库欣）；常见肥胖 GWAS 信号弱（4 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>米非司酮获批（库欣综合征）；CATALYST 试验（Diabetes Care 2025）：米非司酮改善 T2D+高皮质醇患者血糖；miricorilant（Corcept）II 期在肥胖/高皮质醇亚群进行。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>GR 拮抗剂小分子成熟（米非司酮等，9 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>精准亚群（高皮质醇）定位，大厂兴趣有限（3.5 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>肾上腺功能不全、低钾、药物相互作用（3.5 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会：生物标志物驱动（高皮质醇）的 GR 拮抗减重/代谢改善，差异化定位。</span></div>
+      <div class="subscore">
+        <span>遗传 4.0</span><span>临床 4.5</span>
+        <span>成药 9.0</span><span>空间 3.5</span>
+        <span>安全 3.5</span>
+      </div>
+    </div>
+    <div class="card" id="t-PRKAA1">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#e37400">11</span>
+        <span class="tname">PRKAA1</span>
+        <span class="tname-cn">AMPK</span>
+        <span class="tscore">综合 4.92</span>
+        <span class="tier-sm" style="background:#e37400">第二梯队·重点布局</span>
+      </div>
+      <p class="lead">AMPK：代谢中枢酶，二甲双胍靶点；直接激活剂临床证据薄弱。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.114（排名第 1255）；遗传学证据弱，主要靠二甲双胍药理证据。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>AMPK 通路变异与肥胖关联不显著（3.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>二甲双胍（间接激活）获批 T2D，减重温和（~2-3%）；直接 AMPK 激活剂（PXL770 等）II 期结果平淡。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>直接激活剂化学困难（变构位点），7.5 分。</span></div>
+      <div class="kv"><b>竞争格局</b><span>二甲双胍已平价可及（2.5 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>整体安全（6.5 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会低：作为联合机制（与 GLP-1 复方）或组织选择性激活剂可探索。</span></div>
+      <div class="subscore">
+        <span>遗传 3.5</span><span>临床 5.0</span>
+        <span>成药 7.5</span><span>空间 2.5</span>
+        <span>安全 6.5</span>
+      </div>
+    </div>
+    <div class="card" id="t-HSD11B1">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#1a73a8">12</span>
+        <span class="tname">HSD11B1</span>
+        <span class="tname-cn">11β-HSD1</span>
+        <span class="tscore">综合 4.83</span>
+        <span class="tier-sm" style="background:#1a73a8">第三梯队·机会型</span>
+      </div>
+      <p class="lead">11β-HSD1：组织皮质醇放大器；机制合理但临床反复失败。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.116（排名第 1238）；MR 支持 11β-HSD1 抑制的代谢获益。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>MR 证据：11β-HSD1 抑制→代谢改善；GWAS 中等（4.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>多款抑制剂（AZD4017 等）II 期结果以阴性/亚组阳性为主，大厂已撤退。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>小分子抑制剂化学成熟（9 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>赛道已被弃（3.5 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>HPA 轴激活、肝脏安全（4.5 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会低：或与脂肪靶向递送结合，或聚焦高皮质醇亚群。</span></div>
+      <div class="subscore">
+        <span>遗传 4.5</span><span>临床 3.0</span>
+        <span>成药 9.0</span><span>空间 3.5</span>
+        <span>安全 4.5</span>
+      </div>
+    </div>
+    <div class="card" id="t-ADRB3">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#1a73a8">13</span>
+        <span class="tname">ADRB3</span>
+        <span class="tname-cn">β3-肾上腺素受体</span>
+        <span class="tscore">综合 4.75</span>
+        <span class="tier-sm" style="background:#1a73a8">第三梯队·机会型</span>
+      </div>
+      <p class="lead">β3-肾上腺素受体：能量消耗/产热机制；历史多次失败。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.464（排名第 75）；W64R 等罕见变异与肥胖风险关联不一致。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>人类遗传证据弱（4.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>β3 激动剂（mirabegron 等）产热效应温和，减重未达临床意义；多代化合物失败。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>小分子激动剂化学成熟（9 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>已探索数十年无成药（2 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>心血管（心率/血压）关注（6 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会低：脂肪组织特异性递送或产热+GLP-1 联合可探索，风险高。</span></div>
+      <div class="subscore">
+        <span>遗传 4.5</span><span>临床 3.0</span>
+        <span>成药 9.0</span><span>空间 2.0</span>
+        <span>安全 6.0</span>
+      </div>
+    </div>
+    <div class="card" id="t-FASN">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#1a73a8">14</span>
+        <span class="tname">FASN</span>
+        <span class="tname-cn">脂肪酸合酶</span>
+        <span class="tscore">综合 4.70</span>
+        <span class="tier-sm" style="background:#1a73a8">第三梯队·机会型</span>
+      </div>
+      <p class="lead">脂肪酸合酶：脂肪从头合成限速酶；主战场在 MASH，减重为附带。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.108（排名第 1336）；GWAS 信号弱，证据以脂肪组织功能学为主。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>GWAS 信号弱（3.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>denifanstat（TVB-2640）MASH IIb 期阳性（FASCINATE-2），减重约 4-6% 附带获益；肥胖适应症未推进。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>口服小分子抑制剂已进 III 期（MASH）（8 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>MASH 赛道拥挤，肥胖定位无人（3.5 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>靶向性皮肤/眼部（皮脂）副作用（5.5 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会：减重作为 MASH 联合治疗一部分；独立肥胖适应症吸引力中等。</span></div>
+      <div class="subscore">
+        <span>遗传 3.5</span><span>临床 3.5</span>
+        <span>成药 8.0</span><span>空间 3.5</span>
+        <span>安全 5.5</span>
+      </div>
+    </div>
+    <div class="card" id="t-DGAT1">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#1a73a8">15</span>
+        <span class="tname">DGAT1</span>
+        <span class="tname-cn">二酰甘油酰基转移酶1</span>
+        <span class="tscore">综合 4.62</span>
+        <span class="tier-sm" style="background:#1a73a8">第三梯队·机会型</span>
+      </div>
+      <p class="lead">二酰甘油酰基转移酶1：肠道脂质吸收/存储；临床因 GI 不耐受失败。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.051（排名第 2706）；DGAT1 KO 小鼠抗 DIO 是主要证据，人类遗传证据少。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>小鼠遗传学强、人类弱（4 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>pradigastat（Novartis）开发终止；减重疗效与脂泻/GI 副作用并存。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>小分子抑制剂化学成熟（9 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>无活跃临床者（4 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>脂泻、GI 不耐受（4 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会低：或结合肠选择性设计，但历史包袱重。</span></div>
+      <div class="subscore">
+        <span>遗传 4.0</span><span>临床 2.5</span>
+        <span>成药 9.0</span><span>空间 4.0</span>
+        <span>安全 4.0</span>
+      </div>
+    </div>
+    <div class="card" id="t-FTO">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#1a73a8">16</span>
+        <span class="tname">FTO</span>
+        <span class="tname-cn">FTO RNA去甲基化酶</span>
+        <span class="tscore">综合 4.42</span>
+        <span class="tier-sm" style="background:#1a73a8">第三梯队·机会型</span>
+      </div>
+      <p class="lead">FTO RNA去甲基化酶：常见肥胖最强 GWAS 位点所在基因，但因果机制存争议。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.697（排名第 7）；rs9939609 等位点为常见肥胖最强 GWAS 信号，但蛋白层面因果链（IRX3/IRX5）存争议。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>rs9939609 等位点影响 BMI 的效应为常见变异最强之一（9 分遗传信号），但'基因→蛋白→体重'因果链未定论（FTO 蛋白 vs 邻近基因调控元件）。</span></div>
+      <div class="kv"><b>临床验证</b><span>无任何临床项目；FTO 小分子抑制剂（FB23-2、CS1 等）均在肿瘤（AML）临床前。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>去甲基酶催化位点抑制剂已有报道，但成药性（选择性/脑渗透）未验证（6 分）。</span></div>
+      <div class="kv"><b>竞争格局</b><span>无临床竞争者（6.5 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>机制不明确，发育/表观遗传风险未知（4 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>高风险高赔率：需先建立'FTO 蛋白→肥胖'因果证据链（工具鼠/蛋白组学），再谈药物；适合学术-产业联合立项。</span></div>
+      <div class="subscore">
+        <span>遗传 6.0</span><span>临床 0.5</span>
+        <span>成药 6.0</span><span>空间 6.5</span>
+        <span>安全 4.0</span>
+      </div>
+    </div>
+    <div class="card" id="t-MCHR1">
+      <div class="card-head">
+        <span class="rank-badge" style="background:#1a73a8">17</span>
+        <span class="tname">MCHR1</span>
+        <span class="tname-cn">黑色素聚集激素受体1</span>
+        <span class="tscore">综合 4.40</span>
+        <span class="tier-sm" style="background:#1a73a8">第三梯队·机会型</span>
+      </div>
+      <p class="lead">黑色素聚集激素受体1：啮齿类机制完美、人体转化全面失败的历史靶点。</p>
+      <div class="kv"><b>Open Targets 证据</b><span>OT 关联分 0.058（排名第 2406）；小鼠遗传/药理强，人类 GWAS 证据弱。</span></div>
+      <div class="kv"><b>遗传学证据</b><span>人类遗传证据弱（3.5 分）。</span></div>
+      <div class="kv"><b>临床验证</b><span>5 个化合物进 I 期（AMG 076、GW-856464、NGD-4715、ALB-127158、BMS-830216），无一进入 II 期；BMS-830216 28 天 I 期未观察到减重/食欲下降。</span></div>
+      <div class="kv"><b>小分子可行性</b><span>小分子拮抗剂化学成熟（9 分），但 hERG/心血管风险常见。</span></div>
+      <div class="kv"><b>竞争格局</b><span>赛道 15 年无产出（4 分）。</span></div>
+      <div class="kv"><b>安全考量</b><span>受体占用不足+心血管风险是主因（4 分）。</span></div>
+      <div class="angle"><b>创新机会点</b><span>机会低：除非解决脑暴露+24h 高占用+心血管安全性三难题，不建议立项。</span></div>
+      <div class="subscore">
+        <span>遗传 3.5</span><span>临床 2.0</span>
+        <span>成药 9.0</span><span>空间 4.0</span>
+        <span>安全 4.0</span>
+      </div>
+    </div>
+
+<h2>四·补、专题：DACRA（双胰淀素/降钙素受体激动剂）——"减脂不减肌"方向的代表</h2>
+<div class="note">
+<b>为什么它既是专题又是主列表靶标：</b>DACRA 的受体复合体（降钙素受体 CALCR × RAMP 蛋白组装形成的 amylin 受体）曾是"多肽专属"靶标；但 <b>Structure Therapeutics 已于 2025-12 将其口服小分子 DACRA（ACCG-2671）推进至 I 期</b>，2026H2 再有 ACCG-3535 进入 I 期——小分子可行性已被临床验证。因此本报告将该复合体以 <b>AMYR×CALCR</b> 行纳入主列表评分（综合 6.20，第 4 位，第二梯队顶部）；本专题补充方向性细节，供小分子与多肽平台企业共同参考。
+</div>
+<div class="card">
+  <div class="card-head"><span class="rank-badge" style="background:#0f766e">★</span>
+    <span class="tname">DACRA</span><span class="tname-cn">dual amylin/calcitonin receptor agonists</span>
+    <span class="tscore">肽类已 II 期 + 口服小分子已 I 期</span></div>
+   <div class="kv"><b>受体基础</b><span>amylin 受体（AMY1/AMY3）＝降钙素受体（CALCR/CTR）与 RAMP1/2/3 组装而成；DACRA 同时强效激动 CTR 与 AMY 受体（源于鲑鱼降钙素等非哺乳动物肽的“单分子双受体”灵感）。amylin 受体激活（极后区 area postrema）→ 饱食感/抑制摄食；CTR 激活 → 骨抗吸收（降钙素经典效应）+ 能量代谢效应。</span></div>
+  <div class="kv"><b>多肽路径进展</b><span>KeyBioscience 2017 年将 2 个 DACRA 授权 <b>礼来</b>，Lilly-KeyBio 第二代 DACRA 已进入肥胖临床开发；<b>KBP-336</b>（长效、每周一次）2025-01 启动 <b>II 期</b>（NCT06833749：肥胖合并膝骨关节炎人群，6 个月，终点含 WOMAC 疼痛、体重、DXA 身体成分与骨密度）；KBP-089 曾进入 I 期（T2D）。对照：cagrilintide（诺和诺德）为长效 <b>amylin 类似物</b>（非 DACRA），与司美格鲁肽联用（CagriSema/amycretin）已到 III 期。</span></div>
+   <div class="kv"><b>小分子路径进展（2025 关键节点）</b><span><b>ACCG-2671</b>（Structure Therapeutics）：<b>2025-12 进入 I 期</b>（SAD，健康受试者），公司称“行业进展最快的口服小分子 amylin 疗法”，单药或与口服 GLP-1（aleniglipron）联用开发肥胖；<b>ACCG-3535</b>：第二个口服小分子 DACRA 候选（2025 选出，ObesityWeek 2025 海报），体外 hAMY3R/hCTR 结合 Ki&lt;0.5nM、cAMP EC50 与 cagrilintide 相当，DIO 大鼠单药剂量依赖性减重、与司美格鲁肽联用（同时或 add-on）减重更优，<b>2026H2 进 I 期</b>；另有 SARA（选择性 amylin 受体激动剂）与 GLP-1R+Amylin 口服组合在临床前。</span></div>
+   <div class="kv"><b>减脂不减肌证据</b><span>临床前：KBP-088 慢性给药减重 15%（车辆校正）且整体脂肪减少优于 amylin 各剂量；KBP-336 效力显著强于 cagrilintide（amylin 受体 cAMP 58nM vs 256nM）且慢性给药减重/降食/降糖更优；ACCG-3535 海报标注 amylin 受体激活生理效应含“preserves lean mass”。人体层面：KBP-336 II 期与 aleniglipron 身体成分研究均设置 <b>DXA 身体成分与骨密度</b>终点——“脂肪优先减少、保留瘦体重、骨保护”是 DACRA 类别的核心差异化卖点，最终确认待 II 期读出。</span></div>
+  <div class="kv"><b>竞争格局</b><span>多肽赛道：礼来-KeyBio（KBP-336 II 期）与诺和诺德（cagrilintide/amycretin III 期）领跑；<b>口服小分子赛道：Structure 一家领先</b>（ACCG-2671 I 期 + ACCG-3535 待入 I 期），其余大厂/国内企业多在早期，差异化窗口大。</span></div>
+  <div class="kv"><b>风险与安全</b><span>GI 副作用（恶心/呕吐，amylin 类共性）；口服小分子的生物利用度与食物效应（Structure I 期专门测 food-effect）；长期骨密度与骨骼安全需随访；多肽路径的产能成本 vs 小分子路径的成药性风险各有利弊。</span></div>
+   <div class="angle"><b>对创新药企业的启示</b><span>①小分子企业可直接立项：Structure 已证明口服小分子 DACRA/SARA 化学可行（I 期），SBDD/结构生物学平台是关键能力；②“减脂不减肌+骨保护”是与 GLP-1 单靶差异化的叙事，适合与口服 GLP-1（复方或 add-on）联合开发；③关注 GI 耐受（amylin 通路共性）与骨安全两个临床风险门禁；④多肽平台企业仍可做长效化 DACRA（KBP-336 类）与 CDMO 产能。</span></div>
+</div>
+
+<h2>五、不推荐（小分子视角）靶标速览</h2>
+
+    <div class="nr-card">
+      <div class="nr-head"><b>DGAT2</b> <span class="tname-cn">DGAT2</span>
+        <span class="tscore">综合 4.15</span></div>
+      <div class="kv"><b>关键理由</b><span>不适合作为减肥小分子主靶标。</span></div>
+    </div>
+    <div class="nr-card">
+      <div class="nr-head"><b>THRB</b> <span class="tname-cn">甲状腺激素受体β</span>
+        <span class="tscore">综合 4.12</span></div>
+      <div class="kv"><b>关键理由</b><span>机会中等：脂肪组织靶向 THRβ 作为代谢/减重辅助，非主流。</span></div>
+    </div>
+    <div class="nr-card">
+      <div class="nr-head"><b>LEPR</b> <span class="tname-cn">瘦素受体</span>
+        <span class="tscore">综合 3.98</span></div>
+      <div class="kv"><b>关键理由</b><span>小分子视角不推荐：作为遗传学锚点支撑 MC4R 通路立项更有价值。</span></div>
+    </div>
+    <div class="nr-card">
+      <div class="nr-head"><b>NPY5R</b> <span class="tname-cn">神经肽Y5受体</span>
+        <span class="tscore">综合 3.90</span></div>
+      <div class="kv"><b>关键理由</b><span>不建议立项。</span></div>
+    </div>
+    <div class="nr-card">
+      <div class="nr-head"><b>GDF15/GFRAL</b> <span class="tname-cn">GDF15/GFRAL</span>
+        <span class="tscore">综合 3.07</span></div>
+      <div class="kv"><b>关键理由</b><span>小分子视角不推荐；生物药视角可关注 GDF15×GLP-1 双靶。</span></div>
+    </div>
+    <div class="nr-card">
+      <div class="nr-head"><b>FGF21/KLB</b> <span class="tname-cn">FGF21/β-Klotho</span>
+        <span class="tscore">综合 2.96</span></div>
+      <div class="kv"><b>关键理由</b><span>小分子视角不推荐。</span></div>
+    </div>
+
+<h2>六、创新药开发战略建议</h2>
+<div class="card">
+  <ol style="font-size:14px;padding-left:22px;color:#374151;">
+     <li style="margin-bottom:8px;"><b>不要在拥挤赛道上做“me-too”：</b>口服小分子 GLP-1RA 已上市（orforglipron）+ 口服司美格鲁肽 25mg 已获批，新一代项目必须给出差异化标签——偏向性（biased）信号、更优耐受（danuglipron 因 50%+ 脱落与 DILI 出局是前车之鉴）、超长效、或“减脂不减肌”复方（+actRII/肌生成抑制素、+CB1、+amycretin 类）。</li>
+     <li style="margin-bottom:8px;"><b>GIPR 是当前“遗传+临床+小分子空白”三者叠加度最高的创新位点：</b>建议同时布局口服小分子 GIPR 拮抗剂（与 GLP-1 联用防反弹）与 GIPR 激动/拮抗的选择性信号研究，抢先建立化合物专利组合。</li>
+     <li style="margin-bottom:8px;"><b>MC4R 走“罕见病 + 通用人群”双路径：</b>下丘脑性肥胖、Prader-Willi、LEPR/POMC 缺乏（孤儿药、优先审评），同时以“MC4R 激动剂 + 肠促胰素”复方切入通用肥胖；MC4R 校正剂（CGX-926 类）是全新方向，专利竞争尚早。</li>
+     <li style="margin-bottom:8px;"><b>把“防反弹/减重维持”作为独立适应症立项：</b>停药反弹是 GLP-1 类最大临床痛点；GHSR（LEAP2 通路）、IAPP/DACRA、MC4R 均指向维持期联合治疗，临床终点与监管路径可差异化设计。</li>
+     <li style="margin-bottom:8px;"><b>AMYR×CALCR（DACRA）已是小分子可及靶标：</b>Structure Therapeutics 的 ACCG-2671（2025-12 进 I 期）与 ACCG-3535（2026H2 进 I 期）证明口服小分子 DACRA 化学可行，复合体主列表评分第 4 位；机会在：①口服小分子 DACRA/SARA 单药或与口服 GLP-1 复方（“减脂不减肌+骨保护”差异化叙事）②SBDD/结构生物学平台能力是关键壁垒 ③同时关注 GI 耐受与长期骨安全两个风险门禁；多肽平台企业仍可做长效化 DACRA（礼来-KeyBio KBP-336 已 II 期）与 CDMO 产能。</li>
+    <li style="margin-bottom:8px;"><b>安全是减重药的生死线：</b>慢性、大健康人群长期服药，任何肝毒性（danuglipron）、精神事件（CB1）、瓣膜/肿瘤信号（5-HT2C）都会致命；立项阶段就应把外周限制、hERG、肝酶信号作为硬性门禁。</li>
+     <li style="margin-bottom:8px;"><b>用遗传学锚定立项优先级：</b>以 OT 平台 + GWAS/罕见变异证据打分作为第一步漏斗，FTO 这类“遗传信号强但机制未定”的靶点宜先用工具鼠/蛋白组学建立因果证据再进入药物化学。</li>
+  </ol>
+</div>
+
+<h2>七、主要参考来源</h2>
+<ol class="ref">
+  <li>FDA：Foundayo (orforglipron) 批准公告（2026-04-01，首个 CNPV 项目 NME，PDUFA 2027-01-20 前 294 天获批）；Eli Lilly 新闻稿。</li>
+  <li>Wharton S, et al. Orforglipron, an Oral Small-Molecule GLP-1 Receptor Agonist for Obesity Treatment. N Engl J Med. 2025;393(18):1796-1806（ATTAIN-1，PMID 40960239）。</li>
+  <li>Knop FK, et al. Efficacy and safety of monlunabant in adults with obesity and metabolic syndrome: phase 2a trial. Lancet Diabetes Endocrinol. 2025;13(11):911-923（PMID 41038215）；Novo Nordisk 2024-09-20 公告。</li>
+  <li>Buckeridge C, et al. Efficacy and safety of danuglipron (PF-06882961) in adults with obesity: phase 2b. Diabetes Obes Metab. 2025;27(9):4915-4926；Pfizer 2025-04-14 终止公告。</li>
+  <li>Holm SK, et al. Sustained Weight Loss With Combined LEAP2 and Semaglutide Treatment in Mice. Diabetes. 2025;74(11):2089-2100（PMID 40590720）；Holm SK, et al. LEAP2 as a therapeutic target in obesity. Rev Endocr Metab Disord. 2025（PMID 41284160）。</li>
+  <li>Palatin Technologies：PL7737 口服 MC4R 小分子激动剂（ObesityWeek 2025 摘要；IND 2026H1）；Congruence Therapeutics：CGX-926 口服 MC4R 校正剂 I/1b 期首例给药（2026-03-19 PR）；Rhythm/LG Chem：bivamelagon II 期（下丘脑性肥胖）。</li>
+  <li>Antag Therapeutics：AT-7687 首个 GIPR 拮抗剂 I 期启动（2025，topline 2025Q4）；RenaissThera 口服小分子 GIPR 调节剂（2025-06）。</li>
+  <li>Bays HE, et al. Licogliflozin, a Novel SGLT1 and 2 Inhibitor: Body Weight Effects. Obesity (Silver Spring). 2020;28(5):870-881（PMID 32187881）。</li>
+  <li>Molitch ME. Glucocorticoid receptor blockers. Pituitary. 2022;25(5):733-736（PMID 35507245）；CATALYST 试验. Diabetes Care. 2025;48(12):2036-2044。</li>
+  <li>Wang D, et al. GDF15: emerging biology and therapeutic applications for obesity. Nat Rev Endocrinol. 2021;17(10):592-607（PMID 38056430）；Sigvardsen CM, et al. GDF15 is still a mystery hormone. Trends Endocrinol Metab. 2025;36(6):591-601（PMID 39472228）。</li>
+  <li>MCHR1 临床失败史综述：Frontiers in Endocrinology 2013（AMG 076 / GW-856464 / NGD-4715 / ALB-127158 / BMS-830216 均止步 I 期）。</li>
+  <li>DACRA 专题：KeyBioscience 官网（DACRA 平台，2017 年 2 个分子授权礼来，Lilly-KeyBio 第二代 DACRA 进入肥胖临床）；KBP-336 II 期（NCT06833749，2025-01 启动，肥胖+膝骨关节炎，终点含 WOMAC/DXA 身体成分/骨密度）；KBP-088（J Pharm Sci 2024，慢性减重 15% 优于 amylin）；KBP-066A（Mol Metab 2021，每周一次 DACRA）；KBP-336 vs cagrilintide 受体效力与慢病减重对比（ObesityWeek 2025 分析）；CagriSema/amycretin（NEJM 2025，诺和诺德 amylin 类似物+GLP-1）。</li>
+  <li>Structure Therapeutics（口服小分子 DACRA）：ACCG-2671 进入 I 期公告（2025-12，"行业进展最快的口服小分子 amylin 疗法"，SAD 研究，数据 2026H2）；2025 Q4/全年财报（2026-03）：ACCG-3535 定为第二候选、2026H2 进 I 期，aleniglipron（口服小分子 GLP-1R）ACCESS II 2026Q1 读出、2026H2 启动 III 期；ACCG-3535 ObesityWeek 2025 海报（hAMY3R/hCTR 结合 Ki&lt;0.5nM、DIO 大鼠单药减重+司美格鲁肽联用增效）。</li>
+  <li>Endotext: Existing and Emerging Molecular Targets for the Pharmacotherapy of Obesity（NPY5R/5-HT2C/MCHR1 历史）。</li>
+  <li>Novo Nordisk AMAZE-12（NNC0487-0111，III 期，2026-04 启动）；oral semaglutide 25mg（OASIS-4）2025-12 获批；Pfizer PF-07976016（口服 GIP 类分子）IIa（NCT06717425）。</li>
+  <li>PubMed E-utilities 文献计量（本报告实测，2026-08-06）：GLP1R 7639 / MC4R 1875 / GIPR 705 / CNR1 684 / GHSR 668 / FTO 2628 / MCHR1 184 等（"靶标 AND 肥胖/减重"限定）。</li>
+  <li>Open Targets Platform v4 GraphQL API（api.platform.opentargets.org/api/v4/graphql）：disease=MONDO_0011122（obesity disorder）associatedTargets 实测数据（2026-08-06，共 9702 个关联靶标，取前 4000 匹配本报告候选靶标）；disease.drugAndClinicalCandidates（137 个药物/临床候选，含 cagrilintide、rimonabant、setmelanotide、lorcaserin、metreleptin、licogliflozin、taranabant 等）。</li>
+</ol>
+
+<div class="foot">
+本报告由 WorkBuddy 基于公开数据自动生成，仅用于科研与研发立项参考，不构成投资建议或临床用药建议。OT 数据直连官方 API（api.platform.opentargets.org）实测；重要决策前请登录 platform.opentargets.org 与 ClinicalTrials.gov 核实原始数据。
+</div>
+</div></body></html>
