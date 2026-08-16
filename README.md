@@ -96,6 +96,6 @@ C:\Users\<你的用户名>\.workbuddy\skills\otp-target-assessment\
 
 ## 四、团队分享方式
 
-如需分享给同事/团队成员，直接分发仓库中 `output/otp-target-assessment.zip` 压缩包，并指引对方按照本文档 **第二章节（分发包安装指南）** 完成部署即可。
+如需分享给同事/团队成员，直接分发仓库中 `otp-target-assessment.zip` 压缩包，并指引对方按照本文档 **第二章节（分发包安装指南）** 完成部署即可。
 
 > （注：部分内容由 Workbuddy/DeepSeek-V4-Flash 辅助生成、排版）
