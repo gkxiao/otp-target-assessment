@@ -26,6 +26,8 @@ C:\Users\gkxiao\.workbuddy\skills\otp-target-assessment\
 
 - 帮我做靶标评估：PTGDR2 × CSU
 
+- AMYR3 X obesity, and deliver an English report
+
 ## 二、Skill 分发包安装指南（跨机器/团队共享）
 
 项目提供标准化压缩分发包 `output/otp-target-assessment.zip`，为纯静态技能目录包，**解压即装、无安装器、无第三方依赖**，可自由迁移、分享给其他用户。
